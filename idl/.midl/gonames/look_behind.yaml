@@ -1,0 +1,9 @@
+lookBehind:
+  time: {stamp: [timestamp], stamps: [timestamps]}
+  band: {width: [bandwidth]}
+  name: {space: [namespace]}
+  un: {register: [unregister]}
+  sub: {cond: [subcondition], condition: [subcondition]}
+  s: {cs: [subconditions]}
+  clsi: {ds: [class, ids]}
+

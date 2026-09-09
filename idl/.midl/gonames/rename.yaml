@@ -1,0 +1,3 @@
+rename:
+  bString: [Is, String]
+  szTime: [String, Time]

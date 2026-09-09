@@ -1,0 +1,38 @@
+name: generate
+
+# Regenerate the OPC bindings from IDL and fail if the committed code in opc/
+# is out of date with a fresh "make all" run.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out go-opcda
+        uses: actions/checkout@v4
+
+      # The Makefile expects the go-msrpc IDL definitions at ../go-msrpc/idl
+      # (a sibling of this repository). Only the idl/ folder is needed for code
+      # generation, so use a sparse, blobless checkout to keep it cheap.
+      - name: Sparse checkout of go-msrpc idl
+        run: |
+          git clone --no-checkout --filter=blob:none \
+            https://github.com/oiweiwei/go-msrpc.git ../go-msrpc
+          git -C ../go-msrpc sparse-checkout set idl
+          git -C ../go-msrpc checkout
+          ls -la ../go-msrpc/idl
+
+      - name: Regenerate bindings
+        run: make all
+
+      - name: Check for diff
+        run: |
+          if ! git diff --exit-code; then
+            echo "::error::Generated code under opc/ is out of date. Run 'make all' and commit the result."
+            git status --porcelain
+            exit 1
+          fi

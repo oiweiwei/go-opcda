@@ -1,0 +1,3 @@
+import "oaidl.idl";
+
+typedef [unique] IUnknown *LPUNKNOWN;

@@ -1,0 +1,9 @@
+trim:
+  prefixAll:
+  - OPCAE
+  - IOPCHDA_
+  - IOPCHDA
+  - OPCHDA
+  - IOPC
+  - OPC_
+  - OPC

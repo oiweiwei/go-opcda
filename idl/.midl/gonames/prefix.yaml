@@ -1,0 +1,33 @@
+trim:
+  prefix:
+  - pp
+  - pcelt
+  - b
+  - sz
+  - h
+  - dw
+  - vt
+  - v
+  - w
+  - ft
+  - hr
+  - i
+  - p
+  - ph
+  - pb
+  - pdw
+  - pv
+  - pw
+  - pft
+  - ppv
+  - ppsz
+  - ppvt
+  - rgcatid
+  - ppenum
+  - psz
+  - rg
+  - ppdw
+  - ha
+  - ht
+  - phr
+  - pph
