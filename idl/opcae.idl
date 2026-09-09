@@ -109,23 +109,23 @@ typedef struct
 {
 	                            WORD	 wState;
 	                            WORD	 wReserved1;		
-	                            LPWSTR 	 szActiveSubCondition;
-	                            LPWSTR	 szASCDefinition;
+	                            [string] LPWSTR 	 szActiveSubCondition;
+	                            [string] LPWSTR	 szASCDefinition;
 	                            DWORD	 dwASCSeverity;
-	                            LPWSTR	 szASCDescription;
+	                            [string] LPWSTR	 szASCDescription;
 	                            WORD	 wQuality;
 	                            WORD	 wReserved2;		
 	                            FILETIME ftLastAckTime;
 	                            FILETIME ftSubCondLastActive;
 	                            FILETIME ftCondLastActive;
 	                            FILETIME ftCondLastInactive;
-	                            LPWSTR	 szAcknowledgerID;
-	                            LPWSTR   szComment;
+	                            [string] LPWSTR	 szAcknowledgerID;
+	                            [string] LPWSTR   szComment;
 	                            DWORD    dwNumSCs;
-	[size_is (dwNumSCs)]        LPWSTR * pszSCNames;
-	[size_is (dwNumSCs)]        LPWSTR * pszSCDefinitions;
+	[size_is (dwNumSCs), string]        LPWSTR * pszSCNames;
+	[size_is (dwNumSCs), string]        LPWSTR * pszSCDefinitions;
 	[size_is (dwNumSCs)]        DWORD  * pdwSCSeverities;
-	[size_is (dwNumSCs)]        LPWSTR * pszSCDescriptions;
+	[size_is (dwNumSCs), string]        LPWSTR * pszSCDescriptions;
 	                            DWORD	 dwNumEventAttrs;
 	[size_is(dwNumEventAttrs)]	VARIANT* pEventAttributes;
 	[size_is(dwNumEventAttrs)]	HRESULT* pErrors;
@@ -164,50 +164,50 @@ interface IOPCEventServer : IUnknown
 		[in]                       DWORD    dwEventType,	
 		[out]                      DWORD*   pdwCount, 
 		[out, size_is(,*pdwCount)] DWORD**  ppdwEventCategories,
-		[out, size_is(,*pdwCount)] LPWSTR** ppszEventCategoryDescs
+		[out, size_is(,*pdwCount), string] LPWSTR** ppszEventCategoryDescs
 	);
 
 	HRESULT QueryConditionNames(
 		[in]                       DWORD    dwEventCategory, 
 		[out]                      DWORD*   pdwCount, 
-		[out, size_is(,*pdwCount)] LPWSTR** ppszConditionNames
+		[out, size_is(,*pdwCount), string] LPWSTR** ppszConditionNames
 	);
 
 	HRESULT QuerySubConditionNames(
-		[in]                       LPWSTR   szConditionName, 
+		[in, string]                       LPWSTR   szConditionName, 
 		[out]                      DWORD*   pdwCount, 
-		[out, size_is(,*pdwCount)] LPWSTR** ppszSubConditionNames
+		[out, size_is(,*pdwCount), string] LPWSTR** ppszSubConditionNames
 	);
 
 	HRESULT QuerySourceConditions(
-		[in]                       LPWSTR   szSource, 
+		[in, string]                       LPWSTR   szSource, 
 		[out]                      DWORD*   pdwCount, 
-		[out, size_is(,*pdwCount)] LPWSTR** ppszConditionNames
+		[out, size_is(,*pdwCount), string] LPWSTR** ppszConditionNames
 	);
 
 	HRESULT QueryEventAttributes(
 		[in]                       DWORD     dwEventCategory, 
 		[out]                      DWORD*    pdwCount, 
 		[out, size_is(,*pdwCount)] DWORD**   ppdwAttrIDs,
-		[out, size_is(,*pdwCount)] LPWSTR**  ppszAttrDescs,
+		[out, size_is(,*pdwCount), string] LPWSTR**  ppszAttrDescs,
 		[out, size_is(,*pdwCount)] VARTYPE** ppvtAttrTypes
 	);
 
 	HRESULT TranslateToItemIDs(
-		[in]                     LPWSTR   szSource,
+		[in, string]                     LPWSTR   szSource,
 		[in]                     DWORD    dwEventCategory,
-		[in]                     LPWSTR   szConditionName,
-		[in]                     LPWSTR   szSubconditionName,
+		[in, string]                     LPWSTR   szConditionName,
+		[in, string]                     LPWSTR   szSubconditionName,
 		[in]                     DWORD    dwCount, 
 		[in, size_is(dwCount)]   DWORD*   pdwAssocAttrIDs, 
-		[out, size_is(,dwCount)] LPWSTR** ppszAttrItemIDs,
-		[out, size_is(,dwCount)] LPWSTR** ppszNodeNames,
+		[out, size_is(,dwCount), string] LPWSTR** ppszAttrItemIDs,
+		[out, size_is(,dwCount), string] LPWSTR** ppszNodeNames,
 		[out, size_is(,dwCount)] CLSID**  ppCLSIDs
 	);
 
 	HRESULT GetConditionState (
-		[in]                           LPWSTR              szSource,
-		[in]                           LPWSTR              szConditionName,
+		[in, string]                           LPWSTR              szSource,
+		[in, string]                           LPWSTR              szConditionName,
 		[in]                           DWORD               dwNumEventAttrs,
 		[in, size_is(dwNumEventAttrs)] DWORD*              pdwAttributeIDs,
 		[out]                          OPCCONDITIONSTATE** ppConditionState
@@ -215,31 +215,31 @@ interface IOPCEventServer : IUnknown
 
 	HRESULT EnableConditionByArea(
 		[in]                      DWORD   dwNumAreas, 
-		[in, size_is(dwNumAreas)] LPWSTR* pszAreas
+		[in, size_is(dwNumAreas), string] LPWSTR* pszAreas
 	);
 
 
 	HRESULT EnableConditionBySource(
 		[in]                        DWORD   dwNumSources, 
-		[in, size_is(dwNumSources)] LPWSTR* pszSources
+		[in, size_is(dwNumSources), string] LPWSTR* pszSources
 	);
 
 	HRESULT DisableConditionByArea(
 		[in]                      DWORD   dwNumAreas, 
-		[in, size_is(dwNumAreas)] LPWSTR* pszAreas
+		[in, size_is(dwNumAreas), string] LPWSTR* pszAreas
 	);
 
 	HRESULT DisableConditionBySource(
 		[in]                        DWORD   dwNumSources, 
-		[in, size_is(dwNumSources)] LPWSTR* pszSources
+		[in, size_is(dwNumSources), string] LPWSTR* pszSources
 	);
 
 	HRESULT AckCondition(
 		[in]                     DWORD     dwCount,
 		[in, string]             LPWSTR    szAcknowledgerID,
 		[in, string]             LPWSTR    szComment,
-		[in, size_is(dwCount)]   LPWSTR*   pszSource,
-		[in, size_is(dwCount)]   LPWSTR*   pszConditionName,
+		[in, size_is(dwCount), string]   LPWSTR*   pszSource,
+		[in, size_is(dwCount), string]   LPWSTR*   pszConditionName,
 		[in, size_is(dwCount)]   FILETIME* pftActiveTime,
 		[in, size_is(dwCount)]   DWORD*    pdwCookie,
 		[out, size_is(,dwCount)] HRESULT** ppErrors 
@@ -267,9 +267,9 @@ interface IOPCEventSubscriptionMgt : IUnknown
 		[in]                           DWORD   dwLowSeverity,
 		[in]                           DWORD   dwHighSeverity,
 		[in]                           DWORD   dwNumAreas,		
-		[in, size_is(dwNumAreas)]      LPWSTR* pszAreaList,
+		[in, size_is(dwNumAreas), string]      LPWSTR* pszAreaList,
 		[in]                           DWORD   dwNumSources,
-		[in, size_is(dwNumSources)]    LPWSTR* pszSourceList
+		[in, size_is(dwNumSources), string]    LPWSTR* pszSourceList
 	);
 
 	HRESULT GetFilter(	
@@ -279,9 +279,9 @@ interface IOPCEventSubscriptionMgt : IUnknown
 		[out]                              DWORD*   pdwLowSeverity,
 		[out]                              DWORD*   pdwHighSeverity,
 		[out]                              DWORD*   pdwNumAreas,		
-		[out, size_is(,*pdwNumAreas)]      LPWSTR** ppszAreaList,
+		[out, size_is(,*pdwNumAreas), string]      LPWSTR** ppszAreaList,
 		[out]                              DWORD*   pdwNumSources,
-		[out, size_is(,*pdwNumSources)]    LPWSTR** ppszSourceList
+		[out, size_is(,*pdwNumSources), string]    LPWSTR** ppszSourceList
 	);
 
 	HRESULT SelectReturnedAttributes(	

@@ -39,6 +39,7 @@ all:
 	$(MAKE) \
 		opccomn.go \
 		opcda.go \
+		opcae.go \
 		opchda.go \
 		opcsec.go \
 		opcenum.go \

@@ -128,7 +128,7 @@ func rootCmd() *cobra.Command {
 	// adauth registers -u/-p/-k/-H/--ccache/--aes-key/--pfx/--dc/... .
 	authOpts.RegisterFlags(pf)
 
-	root.AddCommand(statusCmd(), browseCmd(), propsCmd(), readCmd(), writeCmd())
+	root.AddCommand(statusCmd(), browseCmd(), propsCmd(), readCmd(), writeCmd(), aeCmd())
 	return root
 }
 
@@ -452,34 +452,39 @@ func writeCmd() *cobra.Command {
 // session: DCOM activation + connection (adauth-authenticated)
 // ---------------------------------------------------------------------------
 
-type session struct {
-	scm        dcerpc.Conn // well-known-endpoint connection
-	conn       dcerpc.Conn // OXID connection to the activated object
-	opc        opcda_client.Client
+// activation is a live DCOM object: the SCM connection, the OXID connection to
+// the activated object, and the bookkeeping (ORPCThis, the activated
+// interface's IPID, and the object exporter's Remote Unknown) needed to call
+// and QueryInterface further interfaces on it.
+//
+// It is protocol-agnostic: OPC DA, OPC A&E and OPCENUM all activate a CLSID the
+// same way and differ only in the client set bound on top of conn. The caller
+// binds its client set and assigns ru = client.RemoteUnknown2() so that
+// queryInterface works.
+type activation struct {
+	scm        dcerpc.Conn   // well-known-endpoint connection
+	conn       dcerpc.Conn   // OXID connection to the activated object
 	this       *dcom.ORPCThis
-	serverIPID *dcom.IPID   // IOPCServer interface pointer of the activated object
-	remUnknown *dcom.IPID   // ipidRemUnknown of the object exporter (for QueryInterface)
+	serverIPID *dcom.IPID    // interface pointer of the activated object (the requested IID)
+	remUnknown *dcom.IPID    // ipidRemUnknown of the object exporter (for QueryInterface)
 	authOpt    dcerpc.Option // per-client seal/sign option
+	ru         iremunknown2.RemoteUnknown2Client
 }
 
-func (s *session) Close(ctx context.Context) {
-	if s.conn != nil {
-		s.conn.Close(ctx) //nolint:errcheck
+func (a *activation) Close(ctx context.Context) {
+	if a.conn != nil {
+		a.conn.Close(ctx) //nolint:errcheck
 	}
-	if s.scm != nil {
-		s.scm.Close(ctx) //nolint:errcheck
+	if a.scm != nil {
+		a.scm.Close(ctx) //nolint:errcheck
 	}
 }
 
-// connect resolves credentials for target via adauth, performs the DCOM remote
-// activation of the OPC server CLSID for the IOPCServer interface, and returns a
-// session bound to that object.
-func connect(ctx context.Context, targetSpec string) (*session, error) {
-	clsID, err := uuid.Parse(classID)
-	if err != nil {
-		return nil, fmt.Errorf("parse class-id: %w", err)
-	}
-
+// activate resolves credentials for target via adauth, performs the DCOM remote
+// activation of clsID for interface iid, and dials the resulting object. Every
+// field of the returned activation is set except ru, which the caller fills in
+// from its bound client set (client.RemoteUnknown2()).
+func activate(ctx context.Context, targetSpec string, clsID *uuid.UUID, iid *dcom.IID) (*activation, error) {
 	creds, target, err := authOpts.WithTarget(ctx, "host", targetSpec)
 	if err != nil {
 		return nil, err
@@ -534,7 +539,7 @@ func connect(ctx context.Context, targetSpec string) (*session, error) {
 	res, err := act.RemoteActivation(ctx, &iactivation.RemoteActivationRequest{
 		ORPCThis:                   &dcom.ORPCThis{Version: srv.COMVersion},
 		ClassID:                    dtyp.GUIDFromUUID(clsID),
-		IIDs:                       []*dcom.IID{iopcserver.ServerIID},
+		IIDs:                       []*dcom.IID{iid},
 		RequestedProtocolSequences: []uint16{uint16(dcetypes.ProtocolTCP), uint16(dcetypes.ProtocolNamedPipe)},
 	})
 	if err != nil {
@@ -557,22 +562,43 @@ func connect(ctx context.Context, targetSpec string) (*session, error) {
 		return nil, fmt.Errorf("dial_oxid_endpoint: %w", err)
 	}
 
-	opc, err := opcda_client.NewClient(ctx, conn, authOpt)
-	if err != nil {
-		conn.Close(ctx) //nolint:errcheck
-		scm.Close(ctx)  //nolint:errcheck
-		return nil, fmt.Errorf("new_opcda_client: %w", err)
-	}
-
-	return &session{
+	return &activation{
 		scm:        scm,
 		conn:       conn,
-		opc:        opc,
 		this:       &dcom.ORPCThis{Version: srv.COMVersion},
 		serverIPID: res.InterfaceData[0].IPID(),
 		remUnknown: res.RemoteUnknown,
 		authOpt:    authOpt,
 	}, nil
+}
+
+// session is an activated OPC DA server (IOPCServer).
+type session struct {
+	*activation
+	opc opcda_client.Client
+}
+
+// connect performs the DCOM remote activation of the OPC DA server CLSID for
+// the IOPCServer interface and returns a session bound to that object.
+func connect(ctx context.Context, targetSpec string) (*session, error) {
+	clsID, err := uuid.Parse(classID)
+	if err != nil {
+		return nil, fmt.Errorf("parse class-id: %w", err)
+	}
+
+	a, err := activate(ctx, targetSpec, clsID, iopcserver.ServerIID)
+	if err != nil {
+		return nil, err
+	}
+
+	opc, err := opcda_client.NewClient(ctx, a.conn, a.authOpt)
+	if err != nil {
+		a.Close(ctx)
+		return nil, fmt.Errorf("new_opcda_client: %w", err)
+	}
+	a.ru = opc.RemoteUnknown2()
+
+	return &session{activation: a, opc: opc}, nil
 }
 
 // iface returns a copy of the opcda client set whose calls target the given
@@ -586,9 +612,10 @@ func (s *session) server(ctx context.Context) iopcserver.ServerClient {
 	return s.iface(ctx, s.serverIPID).Server()
 }
 
-// enumStrings drains an IEnumString enumerator (returned by BrowseOPCItemIDs).
-func (s *session) enumStrings(ctx context.Context, ipid *dcom.IPID) ([]string, error) {
-	es, err := ienumstring.NewEnumStringClient(ctx, s.conn, s.authOpt)
+// enumStrings drains an IEnumString enumerator (returned by BrowseOPCItemIDs
+// and by the A&E area browser).
+func (a *activation) enumStrings(ctx context.Context, ipid *dcom.IPID) ([]string, error) {
+	es, err := ienumstring.NewEnumStringClient(ctx, a.conn, a.authOpt)
 	if err != nil {
 		return nil, fmt.Errorf("new_enum_string: %w", err)
 	}
@@ -597,9 +624,14 @@ func (s *session) enumStrings(ctx context.Context, ipid *dcom.IPID) ([]string, e
 	const batch = 128
 	var names []string
 	for {
-		next, err := es.Next(ctx, &ienumstring.NextRequest{This: s.this, Count: batch})
-		if err != nil {
+		next, err := es.Next(ctx, &ienumstring.NextRequest{This: a.this, Count: batch})
+		// S_FALSE (mapped to ErrorArithmeticOverflow) means the enumerator
+		// returned fewer than requested - the last, partial batch.
+		if err != nil && !errors.Is(err, hresult.ErrorArithmeticOverflow) {
 			return nil, fmt.Errorf("enum_string_next: %w", err)
+		}
+		if next == nil {
+			break
 		}
 		names = append(names, next.Entries...)
 		if next.Fetched < batch {
@@ -617,13 +649,13 @@ func (s *session) enumStrings(ctx context.Context, ipid *dcom.IPID) ([]string, e
 // This is required because every COM interface on an object has its own IPID:
 // activation only handed us IOPCServer, so IOPCBrowseServerAddressSpace,
 // IOPCItemProperties, IOPCSyncIO, ... must each be resolved this way.
-func (s *session) queryInterface(ctx context.Context, objectIPID *dcom.IPID, iid *dcom.IID) (*dcom.IPID, error) {
-	res, err := s.opc.RemoteUnknown2().RemoteQueryInterface2(ctx, &iremunknown2.RemoteQueryInterface2Request{
-		This:      s.this,
+func (a *activation) queryInterface(ctx context.Context, objectIPID *dcom.IPID, iid *dcom.IID) (*dcom.IPID, error) {
+	res, err := a.ru.RemoteQueryInterface2(ctx, &iremunknown2.RemoteQueryInterface2Request{
+		This:      a.this,
 		IPID:      objectIPID.GUID(),
 		IIDsCount: 1,
 		IIDs:      []*dcom.IID{iid},
-	}, dcom.WithIPID(s.remUnknown))
+	}, dcom.WithIPID(a.remUnknown))
 	if err != nil {
 		return nil, fmt.Errorf("query_interface: %w", err)
 	}
