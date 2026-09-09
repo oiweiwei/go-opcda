@@ -1018,7 +1018,7 @@ func (o *BrowseOPCItemIDsResponse) UnmarshalNDR(ctx context.Context, r ndr.Reade
 type xxx_GetItemIDOperation struct {
 	This       *dcom.ORPCThis `idl:"name:This" json:"this"`
 	That       *dcom.ORPCThat `idl:"name:That" json:"that"`
-	ItemDataID string         `idl:"name:szItemDataID" json:"item_data_id"`
+	ItemDataID string         `idl:"name:szItemDataID;string" json:"item_data_id"`
 	ItemID     string         `idl:"name:szItemID;string" json:"item_id"`
 	Return     int32          `idl:"name:Return" json:"return"`
 }
@@ -1057,9 +1057,9 @@ func (o *xxx_GetItemIDOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wr
 			return err
 		}
 	}
-	// szItemDataID {in} (1:{alias=LPWSTR}*(1)[dim:0,string](wchar))
+	// szItemDataID {in} (1:{string, alias=LPWSTR}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.WriteUTF16String(ctx, w, o.ItemDataID); err != nil {
+		if err := ndr.WriteUTF16NString(ctx, w, o.ItemDataID); err != nil {
 			return err
 		}
 	}
@@ -1079,9 +1079,9 @@ func (o *xxx_GetItemIDOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.
 			return err
 		}
 	}
-	// szItemDataID {in} (1:{alias=LPWSTR,pointer=ref}*(1)[dim:0,string](wchar))
+	// szItemDataID {in} (1:{string, alias=LPWSTR,pointer=ref}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.ReadUTF16String(ctx, w, &o.ItemDataID); err != nil {
+		if err := ndr.ReadUTF16NString(ctx, w, &o.ItemDataID); err != nil {
 			return err
 		}
 	}
@@ -1188,7 +1188,7 @@ func (o *xxx_GetItemIDOperation) UnmarshalNDRResponse(ctx context.Context, w ndr
 type GetItemIDRequest struct {
 	// This: ORPCTHIS structure that is used to send ORPC extension data to the server.
 	This       *dcom.ORPCThis `idl:"name:This" json:"this"`
-	ItemDataID string         `idl:"name:szItemDataID" json:"item_data_id"`
+	ItemDataID string         `idl:"name:szItemDataID;string" json:"item_data_id"`
 }
 
 func (o *GetItemIDRequest) xxx_ToOp(ctx context.Context, op *xxx_GetItemIDOperation) *xxx_GetItemIDOperation {

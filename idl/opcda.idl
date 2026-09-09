@@ -296,7 +296,7 @@ interface IOPCBrowseServerAddressSpace: IUnknown
     );        
 
   HRESULT GetItemID(
-    [in]          LPWSTR   szItemDataID,
+    [in, string]  LPWSTR   szItemDataID,
     [out, string] LPWSTR * szItemID
     );
 
@@ -623,24 +623,24 @@ interface IOPCAsyncIO2 : IUnknown
 ]
 interface IOPCItemProperties : IUnknown
 {
-  HRESULT QueryAvailableProperties ( 
-    [in]                          LPWSTR     szItemID,
+  HRESULT QueryAvailableProperties (
+    [in, string]                  LPWSTR     szItemID,
     [out]                         DWORD    * pdwCount,
     [out, size_is(,*pdwCount)]    DWORD   ** ppPropertyIDs,
-    [out, size_is(,*pdwCount)]    LPWSTR  ** ppDescriptions,
+    [out, string, size_is(,*pdwCount)] LPWSTR ** ppDescriptions,
     [out, size_is(,*pdwCount)]    VARTYPE ** ppvtDataTypes
 );
 
-  HRESULT GetItemProperties ( 
-    [in]                         LPWSTR     szItemID,
+  HRESULT GetItemProperties (
+    [in, string]                 LPWSTR     szItemID,
     [in]                         DWORD      dwCount,
     [in, size_is(dwCount)]       DWORD    * pdwPropertyIDs,
     [out, size_is(,dwCount)]     VARIANT ** ppvData,
     [out, size_is(,dwCount)]     HRESULT ** ppErrors
 );
 
-  HRESULT LookupItemIDs( 
-    [in]                         LPWSTR     szItemID,
+  HRESULT LookupItemIDs(
+    [in, string]                 LPWSTR     szItemID,
     [in]                         DWORD      dwCount,
     [in, size_is(dwCount)]       DWORD    * pdwPropertyIDs,
     [out, string, size_is(,dwCount)] LPWSTR ** ppszNewItemIDs,

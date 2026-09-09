@@ -1,1 +1,2 @@
-./go-msrpc/
+dist/
+/gopcda

@@ -184,10 +184,10 @@ func NewItemPropertiesClient(ctx context.Context, cc dcerpc.Conn, opts ...dcerpc
 type xxx_QueryAvailablePropertiesOperation struct {
 	This         *dcom.ORPCThis `idl:"name:This" json:"this"`
 	That         *dcom.ORPCThat `idl:"name:That" json:"that"`
-	ItemID       string         `idl:"name:szItemID" json:"item_id"`
+	ItemID       string         `idl:"name:szItemID;string" json:"item_id"`
 	Count        uint32         `idl:"name:pdwCount" json:"count"`
 	PropertyIDs  []uint32       `idl:"name:ppPropertyIDs;size_is:(, pdwCount)" json:"property_i_ds"`
-	Descriptions []string       `idl:"name:ppDescriptions;size_is:(, pdwCount)" json:"descriptions"`
+	Descriptions []string       `idl:"name:ppDescriptions;size_is:(, pdwCount);string" json:"descriptions"`
 	DataTypes    []uint16       `idl:"name:ppvtDataTypes;size_is:(, pdwCount)" json:"data_types"`
 	Return       int32          `idl:"name:Return" json:"return"`
 }
@@ -228,9 +228,9 @@ func (o *xxx_QueryAvailablePropertiesOperation) MarshalNDRRequest(ctx context.Co
 			return err
 		}
 	}
-	// szItemID {in} (1:{alias=LPWSTR}*(1)[dim:0,string](wchar))
+	// szItemID {in} (1:{string, alias=LPWSTR}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.WriteUTF16String(ctx, w, o.ItemID); err != nil {
+		if err := ndr.WriteUTF16NString(ctx, w, o.ItemID); err != nil {
 			return err
 		}
 	}
@@ -250,9 +250,9 @@ func (o *xxx_QueryAvailablePropertiesOperation) UnmarshalNDRRequest(ctx context.
 			return err
 		}
 	}
-	// szItemID {in} (1:{alias=LPWSTR,pointer=ref}*(1)[dim:0,string](wchar))
+	// szItemID {in} (1:{string, alias=LPWSTR,pointer=ref}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.ReadUTF16String(ctx, w, &o.ItemID); err != nil {
+		if err := ndr.ReadUTF16NString(ctx, w, &o.ItemID); err != nil {
 			return err
 		}
 	}
@@ -341,7 +341,7 @@ func (o *xxx_QueryAvailablePropertiesOperation) MarshalNDRResponse(ctx context.C
 			return err
 		}
 	}
-	// ppDescriptions {out} (1:{pointer=ref}*(2)*(1))(2:{alias=LPWSTR}[dim:0,size_is=pdwCount]*(1)[dim:0,string](wchar))
+	// ppDescriptions {out} (1:{string, pointer=ref}*(2)*(1))(2:{alias=LPWSTR}[dim:0,size_is=pdwCount]*(1)[dim:0,string,null](wchar))
 	{
 		if o.Descriptions != nil || o.Count > 0 {
 			_ptr_ppDescriptions := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
@@ -359,7 +359,7 @@ func (o *xxx_QueryAvailablePropertiesOperation) MarshalNDRResponse(ctx context.C
 					}
 					if o.Descriptions[i1] != "" {
 						_ptr_ppDescriptions := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-							if err := ndr.WriteUTF16String(ctx, w, o.Descriptions[i1]); err != nil {
+							if err := ndr.WriteUTF16NString(ctx, w, o.Descriptions[i1]); err != nil {
 								return err
 							}
 							return nil
@@ -490,7 +490,7 @@ func (o *xxx_QueryAvailablePropertiesOperation) UnmarshalNDRResponse(ctx context
 			return err
 		}
 	}
-	// ppDescriptions {out} (1:{pointer=ref}*(2)*(1))(2:{alias=LPWSTR}[dim:0,size_is=pdwCount]*(1)[dim:0,string](wchar))
+	// ppDescriptions {out} (1:{string, pointer=ref}*(2)*(1))(2:{alias=LPWSTR}[dim:0,size_is=pdwCount]*(1)[dim:0,string,null](wchar))
 	{
 		_ptr_ppDescriptions := ndr.UnmarshalNDRFunc(func(ctx context.Context, w ndr.Reader) error {
 			sizeInfo := []uint64{
@@ -508,7 +508,7 @@ func (o *xxx_QueryAvailablePropertiesOperation) UnmarshalNDRResponse(ctx context
 			for i1 := range o.Descriptions {
 				i1 := i1
 				_ptr_ppDescriptions := ndr.UnmarshalNDRFunc(func(ctx context.Context, w ndr.Reader) error {
-					if err := ndr.ReadUTF16String(ctx, w, &o.Descriptions[i1]); err != nil {
+					if err := ndr.ReadUTF16NString(ctx, w, &o.Descriptions[i1]); err != nil {
 						return err
 					}
 					return nil
@@ -572,7 +572,7 @@ func (o *xxx_QueryAvailablePropertiesOperation) UnmarshalNDRResponse(ctx context
 type QueryAvailablePropertiesRequest struct {
 	// This: ORPCTHIS structure that is used to send ORPC extension data to the server.
 	This   *dcom.ORPCThis `idl:"name:This" json:"this"`
-	ItemID string         `idl:"name:szItemID" json:"item_id"`
+	ItemID string         `idl:"name:szItemID;string" json:"item_id"`
 }
 
 func (o *QueryAvailablePropertiesRequest) xxx_ToOp(ctx context.Context, op *xxx_QueryAvailablePropertiesOperation) *xxx_QueryAvailablePropertiesOperation {
@@ -625,7 +625,7 @@ type QueryAvailablePropertiesResponse struct {
 	That         *dcom.ORPCThat `idl:"name:That" json:"that"`
 	Count        uint32         `idl:"name:pdwCount" json:"count"`
 	PropertyIDs  []uint32       `idl:"name:ppPropertyIDs;size_is:(, pdwCount)" json:"property_i_ds"`
-	Descriptions []string       `idl:"name:ppDescriptions;size_is:(, pdwCount)" json:"descriptions"`
+	Descriptions []string       `idl:"name:ppDescriptions;size_is:(, pdwCount);string" json:"descriptions"`
 	DataTypes    []uint16       `idl:"name:ppvtDataTypes;size_is:(, pdwCount)" json:"data_types"`
 	// Return: The QueryAvailableProperties return value.
 	Return int32 `idl:"name:Return" json:"return"`
@@ -674,7 +674,7 @@ func (o *QueryAvailablePropertiesResponse) UnmarshalNDR(ctx context.Context, r n
 type xxx_GetItemPropertiesOperation struct {
 	This        *dcom.ORPCThis  `idl:"name:This" json:"this"`
 	That        *dcom.ORPCThat  `idl:"name:That" json:"that"`
-	ItemID      string          `idl:"name:szItemID" json:"item_id"`
+	ItemID      string          `idl:"name:szItemID;string" json:"item_id"`
 	Count       uint32          `idl:"name:dwCount" json:"count"`
 	PropertyIDs []uint32        `idl:"name:pdwPropertyIDs;size_is:(dwCount)" json:"property_i_ds"`
 	Data        []*oaut.Variant `idl:"name:ppvData;size_is:(, dwCount)" json:"data"`
@@ -721,9 +721,9 @@ func (o *xxx_GetItemPropertiesOperation) MarshalNDRRequest(ctx context.Context, 
 			return err
 		}
 	}
-	// szItemID {in} (1:{alias=LPWSTR}*(1)[dim:0,string](wchar))
+	// szItemID {in} (1:{string, alias=LPWSTR}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.WriteUTF16String(ctx, w, o.ItemID); err != nil {
+		if err := ndr.WriteUTF16NString(ctx, w, o.ItemID); err != nil {
 			return err
 		}
 	}
@@ -773,9 +773,9 @@ func (o *xxx_GetItemPropertiesOperation) UnmarshalNDRRequest(ctx context.Context
 			return err
 		}
 	}
-	// szItemID {in} (1:{alias=LPWSTR,pointer=ref}*(1)[dim:0,string](wchar))
+	// szItemID {in} (1:{string, alias=LPWSTR,pointer=ref}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.ReadUTF16String(ctx, w, &o.ItemID); err != nil {
+		if err := ndr.ReadUTF16NString(ctx, w, &o.ItemID); err != nil {
 			return err
 		}
 	}
@@ -1040,7 +1040,7 @@ func (o *xxx_GetItemPropertiesOperation) UnmarshalNDRResponse(ctx context.Contex
 type GetItemPropertiesRequest struct {
 	// This: ORPCTHIS structure that is used to send ORPC extension data to the server.
 	This        *dcom.ORPCThis `idl:"name:This" json:"this"`
-	ItemID      string         `idl:"name:szItemID" json:"item_id"`
+	ItemID      string         `idl:"name:szItemID;string" json:"item_id"`
 	Count       uint32         `idl:"name:dwCount" json:"count"`
 	PropertyIDs []uint32       `idl:"name:pdwPropertyIDs;size_is:(dwCount)" json:"property_i_ds"`
 }
@@ -1156,7 +1156,7 @@ func (o *GetItemPropertiesResponse) UnmarshalNDR(ctx context.Context, r ndr.Read
 type xxx_LookupItemIDsOperation struct {
 	This        *dcom.ORPCThis `idl:"name:This" json:"this"`
 	That        *dcom.ORPCThat `idl:"name:That" json:"that"`
-	ItemID      string         `idl:"name:szItemID" json:"item_id"`
+	ItemID      string         `idl:"name:szItemID;string" json:"item_id"`
 	Count       uint32         `idl:"name:dwCount" json:"count"`
 	PropertyIDs []uint32       `idl:"name:pdwPropertyIDs;size_is:(dwCount)" json:"property_i_ds"`
 	NewItemIDs  []string       `idl:"name:ppszNewItemIDs;size_is:(, dwCount);string" json:"new_item_i_ds"`
@@ -1201,9 +1201,9 @@ func (o *xxx_LookupItemIDsOperation) MarshalNDRRequest(ctx context.Context, w nd
 			return err
 		}
 	}
-	// szItemID {in} (1:{alias=LPWSTR}*(1)[dim:0,string](wchar))
+	// szItemID {in} (1:{string, alias=LPWSTR}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.WriteUTF16String(ctx, w, o.ItemID); err != nil {
+		if err := ndr.WriteUTF16NString(ctx, w, o.ItemID); err != nil {
 			return err
 		}
 	}
@@ -1253,9 +1253,9 @@ func (o *xxx_LookupItemIDsOperation) UnmarshalNDRRequest(ctx context.Context, w 
 			return err
 		}
 	}
-	// szItemID {in} (1:{alias=LPWSTR,pointer=ref}*(1)[dim:0,string](wchar))
+	// szItemID {in} (1:{string, alias=LPWSTR,pointer=ref}*(1)[dim:0,string,null](wchar))
 	{
-		if err := ndr.ReadUTF16String(ctx, w, &o.ItemID); err != nil {
+		if err := ndr.ReadUTF16NString(ctx, w, &o.ItemID); err != nil {
 			return err
 		}
 	}
@@ -1511,7 +1511,7 @@ func (o *xxx_LookupItemIDsOperation) UnmarshalNDRResponse(ctx context.Context, w
 type LookupItemIDsRequest struct {
 	// This: ORPCTHIS structure that is used to send ORPC extension data to the server.
 	This        *dcom.ORPCThis `idl:"name:This" json:"this"`
-	ItemID      string         `idl:"name:szItemID" json:"item_id"`
+	ItemID      string         `idl:"name:szItemID;string" json:"item_id"`
 	Count       uint32         `idl:"name:dwCount" json:"count"`
 	PropertyIDs []uint32       `idl:"name:pdwPropertyIDs;size_is:(dwCount)" json:"property_i_ds"`
 }
