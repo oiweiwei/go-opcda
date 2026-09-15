@@ -90,7 +90,7 @@ func (o *xxx_DefaultSecurityPrivateClient) IsAvailablePrivate(ctx context.Contex
 	}
 	out := &IsAvailablePrivateResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -110,7 +110,7 @@ func (o *xxx_DefaultSecurityPrivateClient) Logon(ctx context.Context, in *LogonR
 	}
 	out := &LogonResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -130,7 +130,7 @@ func (o *xxx_DefaultSecurityPrivateClient) Logoff(ctx context.Context, in *Logof
 	}
 	out := &LogoffResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

@@ -109,7 +109,7 @@ func (o *xxx_DefaultAsyncReadClient) ReadRaw(ctx context.Context, in *ReadRawReq
 	}
 	out := &ReadRawResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -129,7 +129,7 @@ func (o *xxx_DefaultAsyncReadClient) AdviseRaw(ctx context.Context, in *AdviseRa
 	}
 	out := &AdviseRawResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -149,7 +149,7 @@ func (o *xxx_DefaultAsyncReadClient) ReadProcessed(ctx context.Context, in *Read
 	}
 	out := &ReadProcessedResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -169,7 +169,7 @@ func (o *xxx_DefaultAsyncReadClient) AdviseProcessed(ctx context.Context, in *Ad
 	}
 	out := &AdviseProcessedResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -189,7 +189,7 @@ func (o *xxx_DefaultAsyncReadClient) ReadAtTime(ctx context.Context, in *ReadAtT
 	}
 	out := &ReadAtTimeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -209,7 +209,7 @@ func (o *xxx_DefaultAsyncReadClient) ReadModified(ctx context.Context, in *ReadM
 	}
 	out := &ReadModifiedResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -229,7 +229,7 @@ func (o *xxx_DefaultAsyncReadClient) ReadAttribute(ctx context.Context, in *Read
 	}
 	out := &ReadAttributeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -249,7 +249,7 @@ func (o *xxx_DefaultAsyncReadClient) Cancel(ctx context.Context, in *CancelReque
 	}
 	out := &CancelResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

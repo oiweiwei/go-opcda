@@ -103,7 +103,7 @@ func (o *xxx_DefaultICategoryRegisterClient) RegisterCategories(ctx context.Cont
 	}
 	out := &RegisterCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -123,7 +123,7 @@ func (o *xxx_DefaultICategoryRegisterClient) UnregisterCategories(ctx context.Co
 	}
 	out := &UnregisterCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -143,7 +143,7 @@ func (o *xxx_DefaultICategoryRegisterClient) RegisterClassImplementedCategories(
 	}
 	out := &RegisterClassImplementedCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -163,7 +163,7 @@ func (o *xxx_DefaultICategoryRegisterClient) UnregisterClassImplementedCategorie
 	}
 	out := &UnregisterClassImplementedCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -183,7 +183,7 @@ func (o *xxx_DefaultICategoryRegisterClient) RegisterClassRequiredCategories(ctx
 	}
 	out := &RegisterClassRequiredCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -203,7 +203,7 @@ func (o *xxx_DefaultICategoryRegisterClient) UnregisterClassRequiredCategories(c
 	}
 	out := &UnregisterClassRequiredCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

@@ -94,7 +94,7 @@ func (o *xxx_DefaultSyncAnnotationsClient) QueryCapabilities(ctx context.Context
 	}
 	out := &QueryCapabilitiesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -114,7 +114,7 @@ func (o *xxx_DefaultSyncAnnotationsClient) Read(ctx context.Context, in *ReadReq
 	}
 	out := &ReadResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -134,7 +134,7 @@ func (o *xxx_DefaultSyncAnnotationsClient) Insert(ctx context.Context, in *Inser
 	}
 	out := &InsertResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

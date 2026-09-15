@@ -96,7 +96,7 @@ func (o *xxx_DefaultCommonClient) SetLocaleID(ctx context.Context, in *SetLocale
 	}
 	out := &SetLocaleIDResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -116,7 +116,7 @@ func (o *xxx_DefaultCommonClient) GetLocaleID(ctx context.Context, in *GetLocale
 	}
 	out := &GetLocaleIDResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -136,7 +136,7 @@ func (o *xxx_DefaultCommonClient) QueryAvailableLocaleIDs(ctx context.Context, i
 	}
 	out := &QueryAvailableLocaleIDsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -156,7 +156,7 @@ func (o *xxx_DefaultCommonClient) GetErrorString(ctx context.Context, in *GetErr
 	}
 	out := &GetErrorStringResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -176,7 +176,7 @@ func (o *xxx_DefaultCommonClient) SetClientName(ctx context.Context, in *SetClie
 	}
 	out := &SetClientNameResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

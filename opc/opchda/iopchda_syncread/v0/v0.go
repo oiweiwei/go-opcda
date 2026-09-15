@@ -100,7 +100,7 @@ func (o *xxx_DefaultSyncReadClient) ReadRaw(ctx context.Context, in *ReadRawRequ
 	}
 	out := &ReadRawResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -120,7 +120,7 @@ func (o *xxx_DefaultSyncReadClient) ReadProcessed(ctx context.Context, in *ReadP
 	}
 	out := &ReadProcessedResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -140,7 +140,7 @@ func (o *xxx_DefaultSyncReadClient) ReadAtTime(ctx context.Context, in *ReadAtTi
 	}
 	out := &ReadAtTimeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -160,7 +160,7 @@ func (o *xxx_DefaultSyncReadClient) ReadModified(ctx context.Context, in *ReadMo
 	}
 	out := &ReadModifiedResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -180,7 +180,7 @@ func (o *xxx_DefaultSyncReadClient) ReadAttribute(ctx context.Context, in *ReadA
 	}
 	out := &ReadAttributeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

@@ -93,7 +93,7 @@ func (o *xxx_DefaultGroupStateManagementClient) GetState(ctx context.Context, in
 	}
 	out := &GetStateResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -113,7 +113,7 @@ func (o *xxx_DefaultGroupStateManagementClient) SetState(ctx context.Context, in
 	}
 	out := &SetStateResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -133,7 +133,7 @@ func (o *xxx_DefaultGroupStateManagementClient) SetName(ctx context.Context, in 
 	}
 	out := &SetNameResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -153,7 +153,7 @@ func (o *xxx_DefaultGroupStateManagementClient) CloneGroup(ctx context.Context, 
 	}
 	out := &CloneGroupResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

@@ -110,7 +110,7 @@ func (o *xxx_DefaultDataCallbackClient) OnDataChange(ctx context.Context, in *On
 	}
 	out := &OnDataChangeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -130,7 +130,7 @@ func (o *xxx_DefaultDataCallbackClient) OnReadComplete(ctx context.Context, in *
 	}
 	out := &OnReadCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -150,7 +150,7 @@ func (o *xxx_DefaultDataCallbackClient) OnReadModifiedComplete(ctx context.Conte
 	}
 	out := &OnReadModifiedCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -170,7 +170,7 @@ func (o *xxx_DefaultDataCallbackClient) OnReadAttributeComplete(ctx context.Cont
 	}
 	out := &OnReadAttributeCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -190,7 +190,7 @@ func (o *xxx_DefaultDataCallbackClient) OnReadAnnotations(ctx context.Context, i
 	}
 	out := &OnReadAnnotationsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -210,7 +210,7 @@ func (o *xxx_DefaultDataCallbackClient) OnInsertAnnotations(ctx context.Context,
 	}
 	out := &OnInsertAnnotationsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -230,7 +230,7 @@ func (o *xxx_DefaultDataCallbackClient) OnPlayback(ctx context.Context, in *OnPl
 	}
 	out := &OnPlaybackResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -250,7 +250,7 @@ func (o *xxx_DefaultDataCallbackClient) OnUpdateComplete(ctx context.Context, in
 	}
 	out := &OnUpdateCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -270,7 +270,7 @@ func (o *xxx_DefaultDataCallbackClient) OnCancelComplete(ctx context.Context, in
 	}
 	out := &OnCancelCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

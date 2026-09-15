@@ -108,7 +108,7 @@ func (o *xxx_DefaultServerClient) GetItemAttributes(ctx context.Context, in *Get
 	}
 	out := &GetItemAttributesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -128,7 +128,7 @@ func (o *xxx_DefaultServerClient) GetAggregates(ctx context.Context, in *GetAggr
 	}
 	out := &GetAggregatesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -148,7 +148,7 @@ func (o *xxx_DefaultServerClient) GetHistorianStatus(ctx context.Context, in *Ge
 	}
 	out := &GetHistorianStatusResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -168,7 +168,7 @@ func (o *xxx_DefaultServerClient) GetItemHandles(ctx context.Context, in *GetIte
 	}
 	out := &GetItemHandlesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -188,7 +188,7 @@ func (o *xxx_DefaultServerClient) ReleaseItemHandles(ctx context.Context, in *Re
 	}
 	out := &ReleaseItemHandlesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -208,7 +208,7 @@ func (o *xxx_DefaultServerClient) ValidateItemIDs(ctx context.Context, in *Valid
 	}
 	out := &ValidateItemIDsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -228,7 +228,7 @@ func (o *xxx_DefaultServerClient) CreateBrowse(ctx context.Context, in *CreateBr
 	}
 	out := &CreateBrowseResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

@@ -105,7 +105,7 @@ func (o *xxx_DefaultSyncUpdateClient) QueryCapabilities(ctx context.Context, in 
 	}
 	out := &QueryCapabilitiesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -125,7 +125,7 @@ func (o *xxx_DefaultSyncUpdateClient) Insert(ctx context.Context, in *InsertRequ
 	}
 	out := &InsertResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -145,7 +145,7 @@ func (o *xxx_DefaultSyncUpdateClient) Replace(ctx context.Context, in *ReplaceRe
 	}
 	out := &ReplaceResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -165,7 +165,7 @@ func (o *xxx_DefaultSyncUpdateClient) InsertReplace(ctx context.Context, in *Ins
 	}
 	out := &InsertReplaceResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -185,7 +185,7 @@ func (o *xxx_DefaultSyncUpdateClient) DeleteRaw(ctx context.Context, in *DeleteR
 	}
 	out := &DeleteRawResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -205,7 +205,7 @@ func (o *xxx_DefaultSyncUpdateClient) DeleteAtTime(ctx context.Context, in *Dele
 	}
 	out := &DeleteAtTimeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

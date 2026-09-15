@@ -105,7 +105,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) SetFilter(ctx context.Con
 	}
 	out := &SetFilterResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -125,7 +125,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) GetFilter(ctx context.Con
 	}
 	out := &GetFilterResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -145,7 +145,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) SelectReturnedAttributes(
 	}
 	out := &SelectReturnedAttributesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -165,7 +165,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) GetReturnedAttributes(ctx
 	}
 	out := &GetReturnedAttributesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -185,7 +185,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) Refresh(ctx context.Conte
 	}
 	out := &RefreshResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -205,7 +205,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) CancelRefresh(ctx context
 	}
 	out := &CancelRefreshResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -225,7 +225,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) GetState(ctx context.Cont
 	}
 	out := &GetStateResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -245,7 +245,7 @@ func (o *xxx_DefaultEventSubscriptionManagementClient) SetState(ctx context.Cont
 	}
 	out := &SetStateResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

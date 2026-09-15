@@ -175,7 +175,7 @@ func (o *xxx_DefaultIEnumCategoryInformationClient) Next(ctx context.Context, in
 	}
 	out := &NextResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -195,7 +195,7 @@ func (o *xxx_DefaultIEnumCategoryInformationClient) Skip(ctx context.Context, in
 	}
 	out := &SkipResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -215,7 +215,7 @@ func (o *xxx_DefaultIEnumCategoryInformationClient) Reset(ctx context.Context, i
 	}
 	out := &ResetResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -235,7 +235,7 @@ func (o *xxx_DefaultIEnumCategoryInformationClient) Clone(ctx context.Context, i
 	}
 	out := &CloneResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
