@@ -92,7 +92,7 @@ func (o *xxx_DefaultItemPropertiesClient) QueryAvailableProperties(ctx context.C
 	}
 	out := &QueryAvailablePropertiesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -112,7 +112,7 @@ func (o *xxx_DefaultItemPropertiesClient) GetItemProperties(ctx context.Context,
 	}
 	out := &GetItemPropertiesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -132,7 +132,7 @@ func (o *xxx_DefaultItemPropertiesClient) LookupItemIDs(ctx context.Context, in 
 	}
 	out := &LookupItemIDsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

@@ -100,7 +100,7 @@ func (o *xxx_DefaultBrowseServerAddressSpaceClient) QueryOrganization(ctx contex
 	}
 	out := &QueryOrganizationResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -120,7 +120,7 @@ func (o *xxx_DefaultBrowseServerAddressSpaceClient) ChangeBrowsePosition(ctx con
 	}
 	out := &ChangeBrowsePositionResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -140,7 +140,7 @@ func (o *xxx_DefaultBrowseServerAddressSpaceClient) BrowseOPCItemIDs(ctx context
 	}
 	out := &BrowseOPCItemIDsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -160,7 +160,7 @@ func (o *xxx_DefaultBrowseServerAddressSpaceClient) GetItemID(ctx context.Contex
 	}
 	out := &GetItemIDResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -180,7 +180,7 @@ func (o *xxx_DefaultBrowseServerAddressSpaceClient) BrowseAccessPaths(ctx contex
 	}
 	out := &BrowseAccessPathsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

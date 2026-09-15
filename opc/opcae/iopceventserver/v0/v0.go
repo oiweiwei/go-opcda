@@ -133,7 +133,7 @@ func (o *xxx_DefaultEventServerClient) GetStatus(ctx context.Context, in *GetSta
 	}
 	out := &GetStatusResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -153,7 +153,7 @@ func (o *xxx_DefaultEventServerClient) CreateEventSubscription(ctx context.Conte
 	}
 	out := &CreateEventSubscriptionResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -173,7 +173,7 @@ func (o *xxx_DefaultEventServerClient) QueryAvailableFilters(ctx context.Context
 	}
 	out := &QueryAvailableFiltersResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -193,7 +193,7 @@ func (o *xxx_DefaultEventServerClient) QueryEventCategories(ctx context.Context,
 	}
 	out := &QueryEventCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -213,7 +213,7 @@ func (o *xxx_DefaultEventServerClient) QueryConditionNames(ctx context.Context, 
 	}
 	out := &QueryConditionNamesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -233,7 +233,7 @@ func (o *xxx_DefaultEventServerClient) QuerySubconditionNames(ctx context.Contex
 	}
 	out := &QuerySubconditionNamesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -253,7 +253,7 @@ func (o *xxx_DefaultEventServerClient) QuerySourceConditions(ctx context.Context
 	}
 	out := &QuerySourceConditionsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -273,7 +273,7 @@ func (o *xxx_DefaultEventServerClient) QueryEventAttributes(ctx context.Context,
 	}
 	out := &QueryEventAttributesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -293,7 +293,7 @@ func (o *xxx_DefaultEventServerClient) TranslateToItemIDs(ctx context.Context, i
 	}
 	out := &TranslateToItemIDsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -313,7 +313,7 @@ func (o *xxx_DefaultEventServerClient) GetConditionState(ctx context.Context, in
 	}
 	out := &GetConditionStateResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -333,7 +333,7 @@ func (o *xxx_DefaultEventServerClient) EnableConditionByArea(ctx context.Context
 	}
 	out := &EnableConditionByAreaResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -353,7 +353,7 @@ func (o *xxx_DefaultEventServerClient) EnableConditionBySource(ctx context.Conte
 	}
 	out := &EnableConditionBySourceResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -373,7 +373,7 @@ func (o *xxx_DefaultEventServerClient) DisableConditionByArea(ctx context.Contex
 	}
 	out := &DisableConditionByAreaResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -393,7 +393,7 @@ func (o *xxx_DefaultEventServerClient) DisableConditionBySource(ctx context.Cont
 	}
 	out := &DisableConditionBySourceResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -413,7 +413,7 @@ func (o *xxx_DefaultEventServerClient) AckCondition(ctx context.Context, in *Ack
 	}
 	out := &AckConditionResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -433,7 +433,7 @@ func (o *xxx_DefaultEventServerClient) CreateAreaBrowser(ctx context.Context, in
 	}
 	out := &CreateAreaBrowserResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

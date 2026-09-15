@@ -97,7 +97,7 @@ func (o *xxx_DefaultBrowserClient) GetEnum(ctx context.Context, in *GetEnumReque
 	}
 	out := &GetEnumResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -117,7 +117,7 @@ func (o *xxx_DefaultBrowserClient) ChangeBrowsePosition(ctx context.Context, in 
 	}
 	out := &ChangeBrowsePositionResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -137,7 +137,7 @@ func (o *xxx_DefaultBrowserClient) GetItemID(ctx context.Context, in *GetItemIDR
 	}
 	out := &GetItemIDResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -157,7 +157,7 @@ func (o *xxx_DefaultBrowserClient) GetBranchPosition(ctx context.Context, in *Ge
 	}
 	out := &GetBranchPositionResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

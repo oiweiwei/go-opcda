@@ -97,7 +97,7 @@ func (o *xxx_DefaultEventAreaBrowserClient) ChangeBrowsePosition(ctx context.Con
 	}
 	out := &ChangeBrowsePositionResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -117,7 +117,7 @@ func (o *xxx_DefaultEventAreaBrowserClient) BrowseOPCAreas(ctx context.Context, 
 	}
 	out := &BrowseOPCAreasResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -137,7 +137,7 @@ func (o *xxx_DefaultEventAreaBrowserClient) GetQualifiedAreaName(ctx context.Con
 	}
 	out := &GetQualifiedAreaNameResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -157,7 +157,7 @@ func (o *xxx_DefaultEventAreaBrowserClient) GetQualifiedSourceName(ctx context.C
 	}
 	out := &GetQualifiedSourceNameResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

@@ -109,7 +109,7 @@ func (o *xxx_DefaultICategoryInformationClient) EnumCategories(ctx context.Conte
 	}
 	out := &EnumCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -129,7 +129,7 @@ func (o *xxx_DefaultICategoryInformationClient) GetCategoryDescription(ctx conte
 	}
 	out := &GetCategoryDescriptionResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -149,7 +149,7 @@ func (o *xxx_DefaultICategoryInformationClient) EnumClassesOfCategories(ctx cont
 	}
 	out := &EnumClassesOfCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -169,7 +169,7 @@ func (o *xxx_DefaultICategoryInformationClient) RemoteEnumClassesOfCategories(ct
 	}
 	out := &RemoteEnumClassesOfCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -189,7 +189,7 @@ func (o *xxx_DefaultICategoryInformationClient) IsClassOfCategories(ctx context.
 	}
 	out := &IsClassOfCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -209,7 +209,7 @@ func (o *xxx_DefaultICategoryInformationClient) RemoteIsClassOfCategories(ctx co
 	}
 	out := &RemoteIsClassOfCategoriesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -229,7 +229,7 @@ func (o *xxx_DefaultICategoryInformationClient) EnumImplementedCategoriesOfClass
 	}
 	out := &EnumImplementedCategoriesOfClassResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -249,7 +249,7 @@ func (o *xxx_DefaultICategoryInformationClient) EnumRequiredCategoriesOfClass(ct
 	}
 	out := &EnumRequiredCategoriesOfClassResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

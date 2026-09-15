@@ -103,7 +103,7 @@ func (o *xxx_DefaultAsyncIO2Client) Read(ctx context.Context, in *ReadRequest, o
 	}
 	out := &ReadResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -123,7 +123,7 @@ func (o *xxx_DefaultAsyncIO2Client) Write(ctx context.Context, in *WriteRequest,
 	}
 	out := &WriteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -143,7 +143,7 @@ func (o *xxx_DefaultAsyncIO2Client) Refresh2(ctx context.Context, in *Refresh2Re
 	}
 	out := &Refresh2Response{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -163,7 +163,7 @@ func (o *xxx_DefaultAsyncIO2Client) Cancel2(ctx context.Context, in *Cancel2Requ
 	}
 	out := &Cancel2Response{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -183,7 +183,7 @@ func (o *xxx_DefaultAsyncIO2Client) SetEnable(ctx context.Context, in *SetEnable
 	}
 	out := &SetEnableResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -203,7 +203,7 @@ func (o *xxx_DefaultAsyncIO2Client) GetEnable(ctx context.Context, in *GetEnable
 	}
 	out := &GetEnableResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

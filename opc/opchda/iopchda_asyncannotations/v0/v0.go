@@ -97,7 +97,7 @@ func (o *xxx_DefaultAsyncAnnotationsClient) QueryCapabilities(ctx context.Contex
 	}
 	out := &QueryCapabilitiesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -117,7 +117,7 @@ func (o *xxx_DefaultAsyncAnnotationsClient) Read(ctx context.Context, in *ReadRe
 	}
 	out := &ReadResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -137,7 +137,7 @@ func (o *xxx_DefaultAsyncAnnotationsClient) Insert(ctx context.Context, in *Inse
 	}
 	out := &InsertResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -157,7 +157,7 @@ func (o *xxx_DefaultAsyncAnnotationsClient) Cancel(ctx context.Context, in *Canc
 	}
 	out := &CancelResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

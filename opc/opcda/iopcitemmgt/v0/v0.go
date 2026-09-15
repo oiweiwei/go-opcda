@@ -104,7 +104,7 @@ func (o *xxx_DefaultItemManagementClient) AddItems(ctx context.Context, in *AddI
 	}
 	out := &AddItemsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -124,7 +124,7 @@ func (o *xxx_DefaultItemManagementClient) ValidateItems(ctx context.Context, in 
 	}
 	out := &ValidateItemsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -144,7 +144,7 @@ func (o *xxx_DefaultItemManagementClient) RemoveItems(ctx context.Context, in *R
 	}
 	out := &RemoveItemsResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -164,7 +164,7 @@ func (o *xxx_DefaultItemManagementClient) SetActiveState(ctx context.Context, in
 	}
 	out := &SetActiveStateResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -184,7 +184,7 @@ func (o *xxx_DefaultItemManagementClient) SetClientHandles(ctx context.Context, 
 	}
 	out := &SetClientHandlesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -204,7 +204,7 @@ func (o *xxx_DefaultItemManagementClient) SetDataTypes(ctx context.Context, in *
 	}
 	out := &SetDataTypesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -224,7 +224,7 @@ func (o *xxx_DefaultItemManagementClient) CreateEnumerator(ctx context.Context, 
 	}
 	out := &CreateEnumeratorResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

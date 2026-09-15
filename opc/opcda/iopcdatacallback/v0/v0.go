@@ -97,7 +97,7 @@ func (o *xxx_DefaultDataCallbackClient) OnDataChange(ctx context.Context, in *On
 	}
 	out := &OnDataChangeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -117,7 +117,7 @@ func (o *xxx_DefaultDataCallbackClient) OnReadComplete(ctx context.Context, in *
 	}
 	out := &OnReadCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -137,7 +137,7 @@ func (o *xxx_DefaultDataCallbackClient) OnWriteComplete(ctx context.Context, in 
 	}
 	out := &OnWriteCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -157,7 +157,7 @@ func (o *xxx_DefaultDataCallbackClient) OnCancelComplete(ctx context.Context, in
 	}
 	out := &OnCancelCompleteResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

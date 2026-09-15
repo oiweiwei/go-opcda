@@ -99,7 +99,7 @@ func (o *xxx_DefaultEventServer2Client) EnableConditionByArea2(ctx context.Conte
 	}
 	out := &EnableConditionByArea2Response{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -119,7 +119,7 @@ func (o *xxx_DefaultEventServer2Client) EnableConditionBySource2(ctx context.Con
 	}
 	out := &EnableConditionBySource2Response{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -139,7 +139,7 @@ func (o *xxx_DefaultEventServer2Client) DisableConditionByArea2(ctx context.Cont
 	}
 	out := &DisableConditionByArea2Response{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -159,7 +159,7 @@ func (o *xxx_DefaultEventServer2Client) DisableConditionBySource2(ctx context.Co
 	}
 	out := &DisableConditionBySource2Response{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -179,7 +179,7 @@ func (o *xxx_DefaultEventServer2Client) GetEnableStateByArea(ctx context.Context
 	}
 	out := &GetEnableStateByAreaResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -199,7 +199,7 @@ func (o *xxx_DefaultEventServer2Client) GetEnableStateBySource(ctx context.Conte
 	}
 	out := &GetEnableStateBySourceResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil

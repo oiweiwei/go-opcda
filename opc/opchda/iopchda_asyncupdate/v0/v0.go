@@ -108,7 +108,7 @@ func (o *xxx_DefaultAsyncUpdateClient) QueryCapabilities(ctx context.Context, in
 	}
 	out := &QueryCapabilitiesResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -128,7 +128,7 @@ func (o *xxx_DefaultAsyncUpdateClient) Insert(ctx context.Context, in *InsertReq
 	}
 	out := &InsertResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -148,7 +148,7 @@ func (o *xxx_DefaultAsyncUpdateClient) Replace(ctx context.Context, in *ReplaceR
 	}
 	out := &ReplaceResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -168,7 +168,7 @@ func (o *xxx_DefaultAsyncUpdateClient) InsertReplace(ctx context.Context, in *In
 	}
 	out := &InsertReplaceResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -188,7 +188,7 @@ func (o *xxx_DefaultAsyncUpdateClient) DeleteRaw(ctx context.Context, in *Delete
 	}
 	out := &DeleteRawResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -208,7 +208,7 @@ func (o *xxx_DefaultAsyncUpdateClient) DeleteAtTime(ctx context.Context, in *Del
 	}
 	out := &DeleteAtTimeResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -228,7 +228,7 @@ func (o *xxx_DefaultAsyncUpdateClient) Cancel(ctx context.Context, in *CancelReq
 	}
 	out := &CancelResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
