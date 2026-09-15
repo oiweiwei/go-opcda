@@ -101,7 +101,7 @@ func (o *xxx_DefaultServerClient) AddGroup(ctx context.Context, in *AddGroupRequ
 	}
 	out := &AddGroupResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -121,7 +121,7 @@ func (o *xxx_DefaultServerClient) GetErrorString(ctx context.Context, in *GetErr
 	}
 	out := &GetErrorStringResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -141,7 +141,7 @@ func (o *xxx_DefaultServerClient) GetGroupByName(ctx context.Context, in *GetGro
 	}
 	out := &GetGroupByNameResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -161,7 +161,7 @@ func (o *xxx_DefaultServerClient) GetStatus(ctx context.Context, in *GetStatusRe
 	}
 	out := &GetStatusResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -181,7 +181,7 @@ func (o *xxx_DefaultServerClient) RemoveGroup(ctx context.Context, in *RemoveGro
 	}
 	out := &RemoveGroupResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
@@ -201,7 +201,7 @@ func (o *xxx_DefaultServerClient) CreateGroupEnumerator(ctx context.Context, in 
 	}
 	out := &CreateGroupEnumeratorResponse{}
 	out.xxx_FromOp(ctx, op)
-	if op.Return != int32(0) {
+	if op.Return < int32(0) {
 		return out, fmt.Errorf("%s: %w", op.OpName(), o.cc.Error(ctx, op.Return))
 	}
 	return out, nil
