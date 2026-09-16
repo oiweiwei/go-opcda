@@ -36,8 +36,8 @@ github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWE
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/oiweiwei/go-math v1.0.0 h1:eBxtydohwi0RTfSX8EPQRO7Xt8j4Ck5v7PVv8Hvp7jg=
 github.com/oiweiwei/go-math v1.0.0/go.mod h1:rWG2PIZRYIjovChTlCcssArtO/s2pVj38c1h2QfH1UM=
-github.com/oiweiwei/go-msrpc v1.6.0 h1:zbo/kqTJtaipQUjHaovBA2vcuc3mlLfX3fXU7iaITNw=
-github.com/oiweiwei/go-msrpc v1.6.0/go.mod h1:lAmiCSeS13ht9g2CiqwEu/R2+kejow5ZDNocsdbO4Gs=
+github.com/oiweiwei/go-msrpc v1.6.1 h1:qTv3YvNff+LL6h4+iS0mAdFVjk4ftagbDyorSb6/hc0=
+github.com/oiweiwei/go-msrpc v1.6.1/go.mod h1:lAmiCSeS13ht9g2CiqwEu/R2+kejow5ZDNocsdbO4Gs=
 github.com/oiweiwei/go-oem v1.0.0 h1:77MJnres0RkNadz7oPEfsbUmZxw1XfYtl8yaxfm8bMM=
 github.com/oiweiwei/go-oem v1.0.0/go.mod h1:+QzsBHKmIIYsYk6Cx+vmjBNSymazlroCVurNRzsgyIg=
 github.com/oiweiwei/go-smb2.fork v1.0.2 h1:rHCaJhX37yNg7U/R7WeoSqlZQxudu/rSxFbA4xtpK2M=
