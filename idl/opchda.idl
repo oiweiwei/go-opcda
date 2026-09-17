@@ -781,7 +781,6 @@ library OPCHDA
 	//==========================================================================
     // Constants
 
-    /*
 	module OPCHDA_Constants
 	{
 		// category description.
@@ -866,7 +865,6 @@ library OPCHDA
 		const DWORD OPCHDA_CONVERSION		  = 0x00800000;
 		const DWORD OPCHDA_PARTIAL            = 0x01000000;
 	}
-    */
 
 	//==========================================================================
     // Synchronous Interfaces

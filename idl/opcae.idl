@@ -461,7 +461,6 @@ library OPC_AE
 	//==========================================================================
     // Constants
 
-    /*
 	module OPCAE_Constants
 	{
 		// category description string.
@@ -495,7 +494,6 @@ library OPC_AE
 		const DWORD OPC_FILTER_BY_AREA		= 0x0008;
 		const DWORD OPC_FILTER_BY_SOURCE	= 0x0010;
 	}
-    */
 	
 	//==========================================================================
     // Synchronous Interfaces
