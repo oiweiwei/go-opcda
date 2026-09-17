@@ -2695,8 +2695,27 @@ func (o *GetStateResponse) UnmarshalNDR(ctx context.Context, r ndr.Reader) error
 	return nil
 }
 
+type SetStateNullMask ndr.NullMask
+
+var (
+	SetStateNullMaskActive     SetStateNullMask = 1 << 0
+	SetStateNullMaskBufferTime SetStateNullMask = 1 << 1
+	SetStateNullMaskMaxSize    SetStateNullMask = 1 << 2
+
+	SetStateNullMaskRequestAll  SetStateNullMask = 0 | SetStateNullMaskActive | SetStateNullMaskBufferTime | SetStateNullMaskMaxSize
+	SetStateNullMaskResponseAll SetStateNullMask = 0
+)
+
+func (o SetStateNullMask) IsSet(v SetStateNullMask) bool { return o&v != 0 }
+
+func (o SetStateNullMask) Set(v SetStateNullMask) SetStateNullMask { return o | v }
+
 // xxx_SetStateOperation structure represents the SetState operation
 type xxx_SetStateOperation struct {
+
+	// SetStateNullMask is used to carry information on null-valued primitive values.
+	NullMask SetStateNullMask
+
 	This               *dcom.ORPCThis `idl:"name:This" json:"this"`
 	That               *dcom.ORPCThat `idl:"name:That" json:"that"`
 	Active             bool           `idl:"name:pbActive;pointer:unique" json:"active"`
@@ -2744,22 +2763,26 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pbActive {in} (1:{pointer=unique}*(1))(2:{alias=BOOL}(int32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pbActive := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if !o.Active {
-				if err := w.WriteData(int32(0)); err != nil {
-					return err
+		if o.NullMask&SetStateNullMaskActive == 0 {
+			_ptr_pbActive := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if !o.Active {
+					if err := w.WriteData(int32(0)); err != nil {
+						return err
+					}
+				} else {
+					if err := w.WriteData(int32(1)); err != nil {
+						return err
+					}
 				}
-			} else {
-				if err := w.WriteData(int32(1)); err != nil {
-					return err
-				}
+				return nil
+			})
+			if err := w.WritePointer(&o.Active, _ptr_pbActive); err != nil {
+				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.Active, _ptr_pbActive); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -2767,16 +2790,20 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pdwBufferTime {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pdwBufferTime := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.BufferTime); err != nil {
+		if o.NullMask&SetStateNullMaskBufferTime == 0 {
+			_ptr_pdwBufferTime := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.BufferTime); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.BufferTime, _ptr_pdwBufferTime); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.BufferTime, _ptr_pdwBufferTime); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -2784,16 +2811,20 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pdwMaxSize {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pdwMaxSize := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.MaxSize); err != nil {
+		if o.NullMask&SetStateNullMaskMaxSize == 0 {
+			_ptr_pdwMaxSize := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.MaxSize); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.MaxSize, _ptr_pdwMaxSize); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.MaxSize, _ptr_pdwMaxSize); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -2832,7 +2863,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pbActive := func(ptr interface{}) { o.Active = *ptr.(*bool) }
-		if err := w.ReadPointer(&o.Active, _s_pbActive, _ptr_pbActive); err != nil {
+		_m_pbActive := func() { o.NullMask |= SetStateNullMaskActive }
+		if err := w.ReadPointerWithHook(&o.Active, ndr.PointerHook{_s_pbActive, _m_pbActive}, _ptr_pbActive); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -2848,7 +2880,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pdwBufferTime := func(ptr interface{}) { o.BufferTime = *ptr.(*uint32) }
-		if err := w.ReadPointer(&o.BufferTime, _s_pdwBufferTime, _ptr_pdwBufferTime); err != nil {
+		_m_pdwBufferTime := func() { o.NullMask |= SetStateNullMaskBufferTime }
+		if err := w.ReadPointerWithHook(&o.BufferTime, ndr.PointerHook{_s_pdwBufferTime, _m_pdwBufferTime}, _ptr_pdwBufferTime); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -2864,7 +2897,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pdwMaxSize := func(ptr interface{}) { o.MaxSize = *ptr.(*uint32) }
-		if err := w.ReadPointer(&o.MaxSize, _s_pdwMaxSize, _ptr_pdwMaxSize); err != nil {
+		_m_pdwMaxSize := func() { o.NullMask |= SetStateNullMaskMaxSize }
+		if err := w.ReadPointerWithHook(&o.MaxSize, ndr.PointerHook{_s_pdwMaxSize, _m_pdwMaxSize}, _ptr_pdwMaxSize); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -2965,6 +2999,10 @@ func (o *xxx_SetStateOperation) UnmarshalNDRResponse(ctx context.Context, w ndr.
 
 // SetStateRequest structure represents the SetState operation request
 type SetStateRequest struct {
+
+	// SetStateNullMask is used to carry information on null-valued primitive values.
+	NullMask SetStateNullMask
+
 	// This: ORPCTHIS structure that is used to send ORPC extension data to the server.
 	This               *dcom.ORPCThis `idl:"name:This" json:"this"`
 	Active             bool           `idl:"name:pbActive;pointer:unique" json:"active"`
@@ -2985,6 +3023,7 @@ func (o *SetStateRequest) xxx_ToOp(ctx context.Context, op *xxx_SetStateOperatio
 	op.BufferTime = o.BufferTime
 	op.MaxSize = o.MaxSize
 	op.ClientSubscription = o.ClientSubscription
+	op.NullMask = o.NullMask
 	return op
 }
 
@@ -2997,6 +3036,7 @@ func (o *SetStateRequest) xxx_FromOp(ctx context.Context, op *xxx_SetStateOperat
 	o.BufferTime = op.BufferTime
 	o.MaxSize = op.MaxSize
 	o.ClientSubscription = op.ClientSubscription
+	o.NullMask = SetStateNullMask(op.NullMask) & SetStateNullMaskRequestAll
 }
 func (o *SetStateRequest) MarshalNDR(ctx context.Context, w ndr.Writer) error {
 	return o.xxx_ToOp(ctx, nil).MarshalNDRRequest(ctx, w)
@@ -3023,6 +3063,10 @@ func (o *SetStateRequest) OpName() string { return "/IOPCEventSubscriptionMgt/v0
 
 // SetStateResponse structure represents the SetState operation response
 type SetStateResponse struct {
+
+	// SetStateNullMask is used to carry information on null-valued primitive values.
+	NullMask SetStateNullMask
+
 	// That: ORPCTHAT structure that is used to return ORPC extension data to the client.
 	That              *dcom.ORPCThat `idl:"name:That" json:"that"`
 	RevisedBufferTime uint32         `idl:"name:pdwRevisedBufferTime" json:"revised_buffer_time"`
@@ -3042,6 +3086,7 @@ func (o *SetStateResponse) xxx_ToOp(ctx context.Context, op *xxx_SetStateOperati
 	op.RevisedBufferTime = o.RevisedBufferTime
 	op.RevisedMaxSize = o.RevisedMaxSize
 	op.Return = o.Return
+	op.NullMask = o.NullMask
 	return op
 }
 
@@ -3053,6 +3098,7 @@ func (o *SetStateResponse) xxx_FromOp(ctx context.Context, op *xxx_SetStateOpera
 	o.RevisedBufferTime = op.RevisedBufferTime
 	o.RevisedMaxSize = op.RevisedMaxSize
 	o.Return = op.Return
+	o.NullMask = SetStateNullMask(op.NullMask) & SetStateNullMaskResponseAll
 }
 func (o *SetStateResponse) MarshalNDR(ctx context.Context, w ndr.Writer) error {
 	return o.xxx_ToOp(ctx, nil).MarshalNDRResponse(ctx, w)

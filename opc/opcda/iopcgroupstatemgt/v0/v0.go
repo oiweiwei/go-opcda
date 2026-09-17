@@ -566,8 +566,30 @@ func (o *GetStateResponse) UnmarshalNDR(ctx context.Context, r ndr.Reader) error
 	return nil
 }
 
+type SetStateNullMask ndr.NullMask
+
+var (
+	SetStateNullMaskRequestedUpdateRate SetStateNullMask = 1 << 0
+	SetStateNullMaskActive              SetStateNullMask = 1 << 1
+	SetStateNullMaskTimeBias            SetStateNullMask = 1 << 2
+	SetStateNullMaskPercentDeadband     SetStateNullMask = 1 << 3
+	SetStateNullMaskLCID                SetStateNullMask = 1 << 4
+	SetStateNullMaskClientGroup         SetStateNullMask = 1 << 5
+
+	SetStateNullMaskRequestAll  SetStateNullMask = 0 | SetStateNullMaskRequestedUpdateRate | SetStateNullMaskActive | SetStateNullMaskTimeBias | SetStateNullMaskPercentDeadband | SetStateNullMaskLCID | SetStateNullMaskClientGroup
+	SetStateNullMaskResponseAll SetStateNullMask = 0
+)
+
+func (o SetStateNullMask) IsSet(v SetStateNullMask) bool { return o&v != 0 }
+
+func (o SetStateNullMask) Set(v SetStateNullMask) SetStateNullMask { return o | v }
+
 // xxx_SetStateOperation structure represents the SetState operation
 type xxx_SetStateOperation struct {
+
+	// SetStateNullMask is used to carry information on null-valued primitive values.
+	NullMask SetStateNullMask
+
 	This                *dcom.ORPCThis `idl:"name:This" json:"this"`
 	That                *dcom.ORPCThat `idl:"name:That" json:"that"`
 	RequestedUpdateRate uint32         `idl:"name:pRequestedUpdateRate;pointer:unique" json:"requested_update_rate"`
@@ -616,16 +638,20 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pRequestedUpdateRate {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pRequestedUpdateRate := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.RequestedUpdateRate); err != nil {
+		if o.NullMask&SetStateNullMaskRequestedUpdateRate == 0 {
+			_ptr_pRequestedUpdateRate := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.RequestedUpdateRate); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.RequestedUpdateRate, _ptr_pRequestedUpdateRate); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.RequestedUpdateRate, _ptr_pRequestedUpdateRate); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -633,22 +659,26 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pActive {in} (1:{pointer=unique}*(1))(2:{alias=BOOL}(int32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pActive := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if !o.Active {
-				if err := w.WriteData(int32(0)); err != nil {
-					return err
+		if o.NullMask&SetStateNullMaskActive == 0 {
+			_ptr_pActive := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if !o.Active {
+					if err := w.WriteData(int32(0)); err != nil {
+						return err
+					}
+				} else {
+					if err := w.WriteData(int32(1)); err != nil {
+						return err
+					}
 				}
-			} else {
-				if err := w.WriteData(int32(1)); err != nil {
-					return err
-				}
+				return nil
+			})
+			if err := w.WritePointer(&o.Active, _ptr_pActive); err != nil {
+				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.Active, _ptr_pActive); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -656,16 +686,20 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pTimeBias {in} (1:{pointer=unique}*(1))(2:{alias=LONG}(int32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pTimeBias := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.TimeBias); err != nil {
+		if o.NullMask&SetStateNullMaskTimeBias == 0 {
+			_ptr_pTimeBias := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.TimeBias); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.TimeBias, _ptr_pTimeBias); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.TimeBias, _ptr_pTimeBias); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -673,16 +707,20 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pPercentDeadband {in} (1:{pointer=unique}*(1))(2:{alias=FLOAT}(float32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pPercentDeadband := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.PercentDeadband); err != nil {
+		if o.NullMask&SetStateNullMaskPercentDeadband == 0 {
+			_ptr_pPercentDeadband := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.PercentDeadband); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.PercentDeadband, _ptr_pPercentDeadband); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.PercentDeadband, _ptr_pPercentDeadband); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -690,16 +728,20 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pLCID {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pLCID := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.LCID); err != nil {
+		if o.NullMask&SetStateNullMaskLCID == 0 {
+			_ptr_pLCID := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.LCID); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.LCID, _ptr_pLCID); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.LCID, _ptr_pLCID); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -707,16 +749,20 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// phClientGroup {in} (1:{pointer=unique}*(1))(2:{alias=OPCHANDLE, names=DWORD}(uint32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_phClientGroup := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.ClientGroup); err != nil {
+		if o.NullMask&SetStateNullMaskClientGroup == 0 {
+			_ptr_phClientGroup := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.ClientGroup); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.ClientGroup, _ptr_phClientGroup); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.ClientGroup, _ptr_phClientGroup); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -747,7 +793,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pRequestedUpdateRate := func(ptr interface{}) { o.RequestedUpdateRate = *ptr.(*uint32) }
-		if err := w.ReadPointer(&o.RequestedUpdateRate, _s_pRequestedUpdateRate, _ptr_pRequestedUpdateRate); err != nil {
+		_m_pRequestedUpdateRate := func() { o.NullMask |= SetStateNullMaskRequestedUpdateRate }
+		if err := w.ReadPointerWithHook(&o.RequestedUpdateRate, ndr.PointerHook{_s_pRequestedUpdateRate, _m_pRequestedUpdateRate}, _ptr_pRequestedUpdateRate); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -765,7 +812,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pActive := func(ptr interface{}) { o.Active = *ptr.(*bool) }
-		if err := w.ReadPointer(&o.Active, _s_pActive, _ptr_pActive); err != nil {
+		_m_pActive := func() { o.NullMask |= SetStateNullMaskActive }
+		if err := w.ReadPointerWithHook(&o.Active, ndr.PointerHook{_s_pActive, _m_pActive}, _ptr_pActive); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -781,7 +829,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pTimeBias := func(ptr interface{}) { o.TimeBias = *ptr.(*int32) }
-		if err := w.ReadPointer(&o.TimeBias, _s_pTimeBias, _ptr_pTimeBias); err != nil {
+		_m_pTimeBias := func() { o.NullMask |= SetStateNullMaskTimeBias }
+		if err := w.ReadPointerWithHook(&o.TimeBias, ndr.PointerHook{_s_pTimeBias, _m_pTimeBias}, _ptr_pTimeBias); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -797,7 +846,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pPercentDeadband := func(ptr interface{}) { o.PercentDeadband = *ptr.(*float32) }
-		if err := w.ReadPointer(&o.PercentDeadband, _s_pPercentDeadband, _ptr_pPercentDeadband); err != nil {
+		_m_pPercentDeadband := func() { o.NullMask |= SetStateNullMaskPercentDeadband }
+		if err := w.ReadPointerWithHook(&o.PercentDeadband, ndr.PointerHook{_s_pPercentDeadband, _m_pPercentDeadband}, _ptr_pPercentDeadband); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -813,7 +863,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pLCID := func(ptr interface{}) { o.LCID = *ptr.(*uint32) }
-		if err := w.ReadPointer(&o.LCID, _s_pLCID, _ptr_pLCID); err != nil {
+		_m_pLCID := func() { o.NullMask |= SetStateNullMaskLCID }
+		if err := w.ReadPointerWithHook(&o.LCID, ndr.PointerHook{_s_pLCID, _m_pLCID}, _ptr_pLCID); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -829,7 +880,8 @@ func (o *xxx_SetStateOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_phClientGroup := func(ptr interface{}) { o.ClientGroup = *ptr.(*uint32) }
-		if err := w.ReadPointer(&o.ClientGroup, _s_phClientGroup, _ptr_phClientGroup); err != nil {
+		_m_phClientGroup := func() { o.NullMask |= SetStateNullMaskClientGroup }
+		if err := w.ReadPointerWithHook(&o.ClientGroup, ndr.PointerHook{_s_phClientGroup, _m_phClientGroup}, _ptr_phClientGroup); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -912,6 +964,10 @@ func (o *xxx_SetStateOperation) UnmarshalNDRResponse(ctx context.Context, w ndr.
 
 // SetStateRequest structure represents the SetState operation request
 type SetStateRequest struct {
+
+	// SetStateNullMask is used to carry information on null-valued primitive values.
+	NullMask SetStateNullMask
+
 	// This: ORPCTHIS structure that is used to send ORPC extension data to the server.
 	This                *dcom.ORPCThis `idl:"name:This" json:"this"`
 	RequestedUpdateRate uint32         `idl:"name:pRequestedUpdateRate;pointer:unique" json:"requested_update_rate"`
@@ -936,6 +992,7 @@ func (o *SetStateRequest) xxx_ToOp(ctx context.Context, op *xxx_SetStateOperatio
 	op.PercentDeadband = o.PercentDeadband
 	op.LCID = o.LCID
 	op.ClientGroup = o.ClientGroup
+	op.NullMask = o.NullMask
 	return op
 }
 
@@ -950,6 +1007,7 @@ func (o *SetStateRequest) xxx_FromOp(ctx context.Context, op *xxx_SetStateOperat
 	o.PercentDeadband = op.PercentDeadband
 	o.LCID = op.LCID
 	o.ClientGroup = op.ClientGroup
+	o.NullMask = SetStateNullMask(op.NullMask) & SetStateNullMaskRequestAll
 }
 func (o *SetStateRequest) MarshalNDR(ctx context.Context, w ndr.Writer) error {
 	return o.xxx_ToOp(ctx, nil).MarshalNDRRequest(ctx, w)
@@ -976,6 +1034,10 @@ func (o *SetStateRequest) OpName() string { return "/IOPCGroupStateMgt/v0/SetSta
 
 // SetStateResponse structure represents the SetState operation response
 type SetStateResponse struct {
+
+	// SetStateNullMask is used to carry information on null-valued primitive values.
+	NullMask SetStateNullMask
+
 	// That: ORPCTHAT structure that is used to return ORPC extension data to the client.
 	That              *dcom.ORPCThat `idl:"name:That" json:"that"`
 	RevisedUpdateRate uint32         `idl:"name:pRevisedUpdateRate" json:"revised_update_rate"`
@@ -993,6 +1055,7 @@ func (o *SetStateResponse) xxx_ToOp(ctx context.Context, op *xxx_SetStateOperati
 	op.That = o.That
 	op.RevisedUpdateRate = o.RevisedUpdateRate
 	op.Return = o.Return
+	op.NullMask = o.NullMask
 	return op
 }
 
@@ -1003,6 +1066,7 @@ func (o *SetStateResponse) xxx_FromOp(ctx context.Context, op *xxx_SetStateOpera
 	o.That = op.That
 	o.RevisedUpdateRate = op.RevisedUpdateRate
 	o.Return = op.Return
+	o.NullMask = SetStateNullMask(op.NullMask) & SetStateNullMaskResponseAll
 }
 func (o *SetStateResponse) MarshalNDR(ctx context.Context, w ndr.Writer) error {
 	return o.xxx_ToOp(ctx, nil).MarshalNDRResponse(ctx, w)
