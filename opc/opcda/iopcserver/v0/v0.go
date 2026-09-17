@@ -249,8 +249,26 @@ func NewServerClient(ctx context.Context, cc dcerpc.Conn, opts ...dcerpc.Option)
 	}, nil
 }
 
+type AddGroupNullMask ndr.NullMask
+
+var (
+	AddGroupNullMaskTimeBias        AddGroupNullMask = 1 << 0
+	AddGroupNullMaskPercentDeadband AddGroupNullMask = 1 << 1
+
+	AddGroupNullMaskRequestAll  AddGroupNullMask = 0 | AddGroupNullMaskTimeBias | AddGroupNullMaskPercentDeadband
+	AddGroupNullMaskResponseAll AddGroupNullMask = 0
+)
+
+func (o AddGroupNullMask) IsSet(v AddGroupNullMask) bool { return o&v != 0 }
+
+func (o AddGroupNullMask) Set(v AddGroupNullMask) AddGroupNullMask { return o | v }
+
 // xxx_AddGroupOperation structure represents the AddGroup operation
 type xxx_AddGroupOperation struct {
+
+	// AddGroupNullMask is used to carry information on null-valued primitive values.
+	NullMask AddGroupNullMask
+
 	This                *dcom.ORPCThis `idl:"name:This" json:"this"`
 	That                *dcom.ORPCThat `idl:"name:That" json:"that"`
 	Name                string         `idl:"name:szName;string" json:"name"`
@@ -333,16 +351,20 @@ func (o *xxx_AddGroupOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pTimeBias {in} (1:{pointer=unique}*(1))(2:{alias=LONG}(int32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pTimeBias := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.TimeBias); err != nil {
+		if o.NullMask&AddGroupNullMaskTimeBias == 0 {
+			_ptr_pTimeBias := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.TimeBias); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.TimeBias, _ptr_pTimeBias); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.TimeBias, _ptr_pTimeBias); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -350,16 +372,20 @@ func (o *xxx_AddGroupOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pPercentDeadband {in} (1:{pointer=unique}*(1))(2:{alias=FLOAT}(float32))
 	{
-		// XXX pointer to primitive type, default behavior is to write non-null pointer.
-		// if this behavior is not desired, use goext_default_null([cond]) attribute.
-		_ptr_pPercentDeadband := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
-			if err := w.WriteData(o.PercentDeadband); err != nil {
+		if o.NullMask&AddGroupNullMaskPercentDeadband == 0 {
+			_ptr_pPercentDeadband := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
+				if err := w.WriteData(o.PercentDeadband); err != nil {
+					return err
+				}
+				return nil
+			})
+			if err := w.WritePointer(&o.PercentDeadband, _ptr_pPercentDeadband); err != nil {
 				return err
 			}
-			return nil
-		})
-		if err := w.WritePointer(&o.PercentDeadband, _ptr_pPercentDeadband); err != nil {
-			return err
+		} else {
+			if err := w.WritePointer(nil); err != nil {
+				return err
+			}
 		}
 		if err := w.WriteDeferred(); err != nil {
 			return err
@@ -434,7 +460,8 @@ func (o *xxx_AddGroupOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pTimeBias := func(ptr interface{}) { o.TimeBias = *ptr.(*int32) }
-		if err := w.ReadPointer(&o.TimeBias, _s_pTimeBias, _ptr_pTimeBias); err != nil {
+		_m_pTimeBias := func() { o.NullMask |= AddGroupNullMaskTimeBias }
+		if err := w.ReadPointerWithHook(&o.TimeBias, ndr.PointerHook{_s_pTimeBias, _m_pTimeBias}, _ptr_pTimeBias); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -450,7 +477,8 @@ func (o *xxx_AddGroupOperation) UnmarshalNDRRequest(ctx context.Context, w ndr.R
 			return nil
 		})
 		_s_pPercentDeadband := func(ptr interface{}) { o.PercentDeadband = *ptr.(*float32) }
-		if err := w.ReadPointer(&o.PercentDeadband, _s_pPercentDeadband, _ptr_pPercentDeadband); err != nil {
+		_m_pPercentDeadband := func() { o.NullMask |= AddGroupNullMaskPercentDeadband }
+		if err := w.ReadPointerWithHook(&o.PercentDeadband, ndr.PointerHook{_s_pPercentDeadband, _m_pPercentDeadband}, _ptr_pPercentDeadband); err != nil {
 			return err
 		}
 		if err := w.ReadDeferred(); err != nil {
@@ -606,6 +634,10 @@ func (o *xxx_AddGroupOperation) UnmarshalNDRResponse(ctx context.Context, w ndr.
 
 // AddGroupRequest structure represents the AddGroup operation request
 type AddGroupRequest struct {
+
+	// AddGroupNullMask is used to carry information on null-valued primitive values.
+	NullMask AddGroupNullMask
+
 	// This: ORPCTHIS structure that is used to send ORPC extension data to the server.
 	This                *dcom.ORPCThis `idl:"name:This" json:"this"`
 	Name                string         `idl:"name:szName;string" json:"name"`
@@ -634,6 +666,7 @@ func (o *AddGroupRequest) xxx_ToOp(ctx context.Context, op *xxx_AddGroupOperatio
 	op.PercentDeadband = o.PercentDeadband
 	op.LCID = o.LCID
 	op.RIID = o.RIID
+	op.NullMask = o.NullMask
 	return op
 }
 
@@ -650,6 +683,7 @@ func (o *AddGroupRequest) xxx_FromOp(ctx context.Context, op *xxx_AddGroupOperat
 	o.PercentDeadband = op.PercentDeadband
 	o.LCID = op.LCID
 	o.RIID = op.RIID
+	o.NullMask = AddGroupNullMask(op.NullMask) & AddGroupNullMaskRequestAll
 }
 func (o *AddGroupRequest) MarshalNDR(ctx context.Context, w ndr.Writer) error {
 	return o.xxx_ToOp(ctx, nil).MarshalNDRRequest(ctx, w)
@@ -676,6 +710,10 @@ func (o *AddGroupRequest) OpName() string { return "/IOPCServer/v0/AddGroup" }
 
 // AddGroupResponse structure represents the AddGroup operation response
 type AddGroupResponse struct {
+
+	// AddGroupNullMask is used to carry information on null-valued primitive values.
+	NullMask AddGroupNullMask
+
 	// That: ORPCTHAT structure that is used to return ORPC extension data to the client.
 	That              *dcom.ORPCThat `idl:"name:That" json:"that"`
 	ServerGroup       uint32         `idl:"name:phServerGroup" json:"server_group"`
@@ -697,6 +735,7 @@ func (o *AddGroupResponse) xxx_ToOp(ctx context.Context, op *xxx_AddGroupOperati
 	op.RevisedUpdateRate = o.RevisedUpdateRate
 	op.Unknown = o.Unknown
 	op.Return = o.Return
+	op.NullMask = o.NullMask
 	return op
 }
 
@@ -709,6 +748,7 @@ func (o *AddGroupResponse) xxx_FromOp(ctx context.Context, op *xxx_AddGroupOpera
 	o.RevisedUpdateRate = op.RevisedUpdateRate
 	o.Unknown = op.Unknown
 	o.Return = op.Return
+	o.NullMask = AddGroupNullMask(op.NullMask) & AddGroupNullMaskResponseAll
 }
 func (o *AddGroupResponse) MarshalNDR(ctx context.Context, w ndr.Writer) error {
 	return o.xxx_ToOp(ctx, nil).MarshalNDRResponse(ctx, w)
