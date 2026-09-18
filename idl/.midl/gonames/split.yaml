@@ -65,5 +65,10 @@ split:
   insertrepacecap: [insert, replace]
   deleterawcap: [delete, raw]
   deleteattimecap: [delete, at, time]
-
-
+  aggrname: [aggregation, name]
+  extradata: [extra, data]
+  nodata: [no, data]
+  datalost: [data, lost]
+  itemid: [item, id]
+  attrname: [attr, name]
+  nobound: [no, bound]

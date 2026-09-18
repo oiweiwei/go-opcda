@@ -2547,3 +2547,6 @@ func (o *BrowseServerAddressSpace) UnmarshalNDR(ctx context.Context, w ndr.Reade
 	}
 	return nil
 }
+
+// OPCDA class identifier b28eedb2-ac6f-11d1-84d5-00608cb8a7e9
+var DALibraryID = &dcom.ClassID{Data1: 0xb28eedb2, Data2: 0xac6f, Data3: 0x11d1, Data4: []byte{0x84, 0xd5, 0x00, 0x60, 0x8c, 0xb8, 0xa7, 0xe9}}

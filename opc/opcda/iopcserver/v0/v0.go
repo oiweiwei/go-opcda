@@ -263,6 +263,8 @@ func (o AddGroupNullMask) IsSet(v AddGroupNullMask) bool { return o&v != 0 }
 
 func (o AddGroupNullMask) Set(v AddGroupNullMask) AddGroupNullMask { return o | v }
 
+func (o AddGroupNullMask) Unset(v AddGroupNullMask) AddGroupNullMask { return o &^ v }
+
 // xxx_AddGroupOperation structure represents the AddGroup operation
 type xxx_AddGroupOperation struct {
 
@@ -351,7 +353,7 @@ func (o *xxx_AddGroupOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pTimeBias {in} (1:{pointer=unique}*(1))(2:{alias=LONG}(int32))
 	{
-		if o.NullMask&AddGroupNullMaskTimeBias == 0 {
+		if o.NullMask&AddGroupNullMaskTimeBias == 0 || o.TimeBias != int32(0) {
 			_ptr_pTimeBias := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.TimeBias); err != nil {
 					return err
@@ -372,7 +374,7 @@ func (o *xxx_AddGroupOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pPercentDeadband {in} (1:{pointer=unique}*(1))(2:{alias=FLOAT}(float32))
 	{
-		if o.NullMask&AddGroupNullMaskPercentDeadband == 0 {
+		if o.NullMask&AddGroupNullMaskPercentDeadband == 0 || o.PercentDeadband != float32(0) {
 			_ptr_pPercentDeadband := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.PercentDeadband); err != nil {
 					return err

@@ -584,6 +584,8 @@ func (o SetStateNullMask) IsSet(v SetStateNullMask) bool { return o&v != 0 }
 
 func (o SetStateNullMask) Set(v SetStateNullMask) SetStateNullMask { return o | v }
 
+func (o SetStateNullMask) Unset(v SetStateNullMask) SetStateNullMask { return o &^ v }
+
 // xxx_SetStateOperation structure represents the SetState operation
 type xxx_SetStateOperation struct {
 
@@ -638,7 +640,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pRequestedUpdateRate {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		if o.NullMask&SetStateNullMaskRequestedUpdateRate == 0 {
+		if o.NullMask&SetStateNullMaskRequestedUpdateRate == 0 || o.RequestedUpdateRate != uint32(0) {
 			_ptr_pRequestedUpdateRate := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.RequestedUpdateRate); err != nil {
 					return err
@@ -659,7 +661,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pActive {in} (1:{pointer=unique}*(1))(2:{alias=BOOL}(int32))
 	{
-		if o.NullMask&SetStateNullMaskActive == 0 {
+		if o.NullMask&SetStateNullMaskActive == 0 || o.Active != false {
 			_ptr_pActive := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if !o.Active {
 					if err := w.WriteData(int32(0)); err != nil {
@@ -686,7 +688,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pTimeBias {in} (1:{pointer=unique}*(1))(2:{alias=LONG}(int32))
 	{
-		if o.NullMask&SetStateNullMaskTimeBias == 0 {
+		if o.NullMask&SetStateNullMaskTimeBias == 0 || o.TimeBias != int32(0) {
 			_ptr_pTimeBias := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.TimeBias); err != nil {
 					return err
@@ -707,7 +709,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pPercentDeadband {in} (1:{pointer=unique}*(1))(2:{alias=FLOAT}(float32))
 	{
-		if o.NullMask&SetStateNullMaskPercentDeadband == 0 {
+		if o.NullMask&SetStateNullMaskPercentDeadband == 0 || o.PercentDeadband != float32(0) {
 			_ptr_pPercentDeadband := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.PercentDeadband); err != nil {
 					return err
@@ -728,7 +730,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pLCID {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		if o.NullMask&SetStateNullMaskLCID == 0 {
+		if o.NullMask&SetStateNullMaskLCID == 0 || o.LCID != uint32(0) {
 			_ptr_pLCID := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.LCID); err != nil {
 					return err
@@ -749,7 +751,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// phClientGroup {in} (1:{pointer=unique}*(1))(2:{alias=OPCHANDLE, names=DWORD}(uint32))
 	{
-		if o.NullMask&SetStateNullMaskClientGroup == 0 {
+		if o.NullMask&SetStateNullMaskClientGroup == 0 || o.ClientGroup != uint32(0) {
 			_ptr_phClientGroup := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.ClientGroup); err != nil {
 					return err

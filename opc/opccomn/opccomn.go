@@ -312,3 +312,6 @@ func (o *Shutdown) UnmarshalNDR(ctx context.Context, w ndr.Reader) error {
 	}
 	return nil
 }
+
+// OPCCOMN class identifier b28eedb1-ac6f-11d1-84d5-00608cb8a7e9
+var ComnLibraryID = &dcom.ClassID{Data1: 0xb28eedb1, Data2: 0xac6f, Data3: 0x11d1, Data4: []byte{0x84, 0xd5, 0x00, 0x60, 0x8c, 0xb8, 0xa7, 0xe9}}
