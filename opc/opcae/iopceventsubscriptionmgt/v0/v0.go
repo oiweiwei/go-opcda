@@ -2710,6 +2710,8 @@ func (o SetStateNullMask) IsSet(v SetStateNullMask) bool { return o&v != 0 }
 
 func (o SetStateNullMask) Set(v SetStateNullMask) SetStateNullMask { return o | v }
 
+func (o SetStateNullMask) Unset(v SetStateNullMask) SetStateNullMask { return o &^ v }
+
 // xxx_SetStateOperation structure represents the SetState operation
 type xxx_SetStateOperation struct {
 
@@ -2763,7 +2765,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pbActive {in} (1:{pointer=unique}*(1))(2:{alias=BOOL}(int32))
 	{
-		if o.NullMask&SetStateNullMaskActive == 0 {
+		if o.NullMask&SetStateNullMaskActive == 0 || o.Active != false {
 			_ptr_pbActive := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if !o.Active {
 					if err := w.WriteData(int32(0)); err != nil {
@@ -2790,7 +2792,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pdwBufferTime {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		if o.NullMask&SetStateNullMaskBufferTime == 0 {
+		if o.NullMask&SetStateNullMaskBufferTime == 0 || o.BufferTime != uint32(0) {
 			_ptr_pdwBufferTime := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.BufferTime); err != nil {
 					return err
@@ -2811,7 +2813,7 @@ func (o *xxx_SetStateOperation) MarshalNDRRequest(ctx context.Context, w ndr.Wri
 	}
 	// pdwMaxSize {in} (1:{pointer=unique}*(1))(2:{alias=DWORD}(uint32))
 	{
-		if o.NullMask&SetStateNullMaskMaxSize == 0 {
+		if o.NullMask&SetStateNullMaskMaxSize == 0 || o.MaxSize != uint32(0) {
 			_ptr_pdwMaxSize := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
 				if err := w.WriteData(o.MaxSize); err != nil {
 					return err

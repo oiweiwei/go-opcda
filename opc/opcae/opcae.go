@@ -2035,3 +2035,6 @@ func (o *EventAreaBrowser) UnmarshalNDR(ctx context.Context, w ndr.Reader) error
 	}
 	return nil
 }
+
+// OPC_AE class identifier 65168844-5783-11d1-84a0-00608cb8a7e9
+var AELibraryID = &dcom.ClassID{Data1: 0x65168844, Data2: 0x5783, Data3: 0x11d1, Data4: []byte{0x84, 0xa0, 0x00, 0x60, 0x8c, 0xb8, 0xa7, 0xe9}}

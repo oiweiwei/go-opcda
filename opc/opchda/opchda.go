@@ -2789,3 +2789,6 @@ func (o *Server) UnmarshalNDR(ctx context.Context, w ndr.Reader) error {
 	}
 	return nil
 }
+
+// OPCHDA class identifier 1f1217ba-dee0-11d2-a5e5-000086339399
+var HDALibraryID = &dcom.ClassID{Data1: 0x1f1217ba, Data2: 0xdee0, Data3: 0x11d2, Data4: []byte{0xa5, 0xe5, 0x00, 0x00, 0x86, 0x33, 0x93, 0x99}}

@@ -220,3 +220,6 @@ func (o *SecurityPrivate) UnmarshalNDR(ctx context.Context, w ndr.Reader) error 
 	}
 	return nil
 }
+
+// OPCSEC class identifier 7aa83aff-6c77-11d3-84f9-00008630a38b
+var SecLibraryID = &dcom.ClassID{Data1: 0x7aa83aff, Data2: 0x6c77, Data3: 0x11d3, Data4: []byte{0x84, 0xf9, 0x00, 0x00, 0x86, 0x30, 0xa3, 0x8b}}

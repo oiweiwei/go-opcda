@@ -704,7 +704,7 @@ func (o *xxx_GetClassDetailsOperation) MarshalNDRResponse(ctx context.Context, w
 			return err
 		}
 	}
-	// ppszProgID {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR}*(1))(3:{alias=OLECHAR, names=WCHAR}[dim:0,string,null](wchar))
+	// ppszProgID {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR}*(1)[dim:0,string,null](wchar))
 	{
 		if o.ProgrammaticID != "" {
 			_ptr_ppszProgID := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
@@ -725,7 +725,7 @@ func (o *xxx_GetClassDetailsOperation) MarshalNDRResponse(ctx context.Context, w
 			return err
 		}
 	}
-	// ppszUserType {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR}*(1))(3:{alias=OLECHAR, names=WCHAR}[dim:0,string,null](wchar))
+	// ppszUserType {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR}*(1)[dim:0,string,null](wchar))
 	{
 		if o.UserType != "" {
 			_ptr_ppszUserType := ndr.MarshalNDRFunc(func(ctx context.Context, w ndr.Writer) error {
@@ -768,7 +768,7 @@ func (o *xxx_GetClassDetailsOperation) UnmarshalNDRResponse(ctx context.Context,
 			return err
 		}
 	}
-	// ppszProgID {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR,pointer=ref}*(1))(3:{alias=OLECHAR, names=WCHAR}[dim:0,string,null](wchar))
+	// ppszProgID {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR,pointer=ref}*(1)[dim:0,string,null](wchar))
 	{
 		_ptr_ppszProgID := ndr.UnmarshalNDRFunc(func(ctx context.Context, w ndr.Reader) error {
 			if err := ndr.ReadUTF16NString(ctx, w, &o.ProgrammaticID); err != nil {
@@ -784,7 +784,7 @@ func (o *xxx_GetClassDetailsOperation) UnmarshalNDRResponse(ctx context.Context,
 			return err
 		}
 	}
-	// ppszUserType {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR,pointer=ref}*(1))(3:{alias=OLECHAR, names=WCHAR}[dim:0,string,null](wchar))
+	// ppszUserType {out} (1:{pointer=ref}*(2))(2:{string, alias=LPOLESTR,pointer=ref}*(1)[dim:0,string,null](wchar))
 	{
 		_ptr_ppszUserType := ndr.UnmarshalNDRFunc(func(ctx context.Context, w ndr.Reader) error {
 			if err := ndr.ReadUTF16NString(ctx, w, &o.UserType); err != nil {
@@ -948,7 +948,7 @@ func (o *xxx_ClassIDFromProgrammaticIDOperation) MarshalNDRRequest(ctx context.C
 			return err
 		}
 	}
-	// szProgId {in} (1:{string, alias=LPCOLESTR}*(1))(2:{alias=OLECHAR, names=WCHAR}[dim:0,string,null](wchar))
+	// szProgId {in} (1:{string, alias=LPCOLESTR}*(1)[dim:0,string,null](wchar))
 	{
 		if err := ndr.WriteUTF16NString(ctx, w, o.ProgrammaticID); err != nil {
 			return err
@@ -970,7 +970,7 @@ func (o *xxx_ClassIDFromProgrammaticIDOperation) UnmarshalNDRRequest(ctx context
 			return err
 		}
 	}
-	// szProgId {in} (1:{string, alias=LPCOLESTR,pointer=ref}*(1))(2:{alias=OLECHAR, names=WCHAR}[dim:0,string,null](wchar))
+	// szProgId {in} (1:{string, alias=LPCOLESTR,pointer=ref}*(1)[dim:0,string,null](wchar))
 	{
 		if err := ndr.ReadUTF16NString(ctx, w, &o.ProgrammaticID); err != nil {
 			return err
